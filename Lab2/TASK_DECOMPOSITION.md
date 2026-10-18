@@ -1,5 +1,103 @@
 # Lab 02 – Task Decomposition
 
+# Work Breakdown Structure (WBS)
+
+## 1.0 Lab 02 – Modern React Architecture, Virtual DOM & State Machines
+
+The Work Breakdown Structure (WBS) organizes Lab 02 into three main exercises, with each exercise decomposed into implementation, verification, and documentation deliverables.
+
+### 1.1 Exercise 1 – Mini-React VNode & Mounting Engine
+
+| WBS ID | Work Package | Deliverable |
+|---|---|---|
+| 1.1.1 | Project setup | Exercise 1 folder and HTML entry point |
+| 1.1.2 | Virtual Text Node Factory | `createTextElement()` |
+| 1.1.3 | Virtual Element Factory | `createElement()` |
+| 1.1.4 | Type Guards | Input validation and unsupported child handling |
+| 1.1.5 | DOM Mounting Engine | Recursive `renderToDOM()` |
+| 1.1.6 | Event Handling | Click handler support |
+| 1.1.7 | Security Verification | XSS-resistant text rendering |
+| 1.1.8 | Testing and DevTools Audit | Factory tests, DOM inspection, event verification |
+| 1.1.9 | Git Milestones | Atomic factory and renderer commits |
+
+### 1.2 Exercise 2 – Reactive State Machine & Delegation Hub
+
+| WBS ID | Work Package | Deliverable |
+|---|---|---|
+| 1.2.1 | Project setup | Exercise 2 folder and module structure |
+| 1.2.2 | State Storage Engine | `stateStore`, `resetCursor()` |
+| 1.2.3 | Reactive Hook | Custom `useState()` |
+| 1.2.4 | Rendering Dispatcher | `renderApp()` and scheduled updates |
+| 1.2.5 | Root Event Delegation | Root click listener and handler registry |
+| 1.2.6 | Delegated DOM Renderer | `renderDelegatedDOM()` |
+| 1.2.7 | Task Manager UI | Add, complete, undo, and delete tasks |
+| 1.2.8 | Dynamic Filtering | ALL, ACTIVE, COMPLETED |
+| 1.2.9 | Verification | State updates, DOM structure, event delegation |
+| 1.2.10 | Documentation and Git | README, verification report, atomic commits |
+
+### 1.3 Exercise 3 – Resilient State Machine & Skeleton Loader
+
+| WBS ID | Work Package | Deliverable |
+|---|---|---|
+| 1.3.1 | Project setup | Exercise 3 folder and module structure |
+| 1.3.2 | Finite State Machine | IDLE, LOADING, SUCCESS, ERROR |
+| 1.3.3 | Asynchronous Data Operation | Promise-based mock data fetching |
+| 1.3.4 | Skeleton Loader | Animated CSS placeholders |
+| 1.3.5 | Success View | Render retrieved data |
+| 1.3.6 | Error Handling | Human-readable error message |
+| 1.3.7 | Retry Mechanism | Retry Connection button |
+| 1.3.8 | Race Condition Protection | Latest-request validation |
+| 1.3.9 | Verification | State transition and stale-response tests |
+| 1.3.10 | Documentation and Git | README, checklist, required commit |
+
+## WBS Hierarchy
+
+```text
+1.0 Lab 02
+│
+├── 1.1 Exercise 1 – Mini-React Engine
+│   ├── 1.1.1 Project Setup
+│   ├── 1.1.2 Text Node Factory
+│   ├── 1.1.3 Element Factory
+│   ├── 1.1.4 Type Guards
+│   ├── 1.1.5 DOM Renderer
+│   ├── 1.1.6 Event Handling
+│   ├── 1.1.7 Security Verification
+│   ├── 1.1.8 Testing & Audit
+│   └── 1.1.9 Git Milestones
+│
+├── 1.2 Exercise 2 – Reactive State Machine
+│   ├── 1.2.1 Project Setup
+│   ├── 1.2.2 State Storage
+│   ├── 1.2.3 Custom useState
+│   ├── 1.2.4 Reactive Dispatcher
+│   ├── 1.2.5 Event Delegation
+│   ├── 1.2.6 Delegated Renderer
+│   ├── 1.2.7 Task Manager
+│   ├── 1.2.8 Dynamic Filtering
+│   ├── 1.2.9 Verification
+│   └── 1.2.10 Documentation & Git
+│
+└── 1.3 Exercise 3 – Resilient State Machine
+    ├── 1.3.1 Project Setup
+    ├── 1.3.2 Finite State Machine
+    ├── 1.3.3 Async Data Operation
+    ├── 1.3.4 Skeleton Loader
+    ├── 1.3.5 Success View
+    ├── 1.3.6 Error Handling
+    ├── 1.3.7 Retry Mechanism
+    ├── 1.3.8 Race Protection
+    ├── 1.3.9 Verification
+    
+    └── 1.3.10 Documentation & Git
+```
+
+## WBS Completion Criteria
+
+Each work package is considered completed when its implementation is available, the relevant functional tests have passed, and the associated changes have been committed to Git.
+
+The WBS describes deliverables and scope. Detailed implementation order and completion status are tracked separately in the Task Breakdown sections.
+
 ## Exercise 1: Building Mini-React VNode & Mounting Engine
 
 **Estimated Duration:** 35 minutes
