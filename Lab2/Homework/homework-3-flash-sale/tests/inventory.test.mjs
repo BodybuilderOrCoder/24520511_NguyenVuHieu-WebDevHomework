@@ -5,6 +5,19 @@ import { Inventory, canTransition } from '../src/inventory.ts';
 const product = { id: 'headphones', name: 'Tai nghe', price: 299000, totalStock: 5 };
 const config = { startsAt: 1000, endsAt: 10000, holdMs: 2000 };
 
+test('expiry releases stock exactly once at the deadline without relying on RAF', () => {
+  const inventory = new Inventory({ ...product, totalStock: 1 }, config);
+  const first = inventory.reserve('you', 1000);
+  assert.equal(inventory.snapshot(2999).available, 0);
+  assert.equal(inventory.snapshot(3000).available, 1);
+  assert.equal(inventory.expire(3000), false);
+  inventory.release(first.id, 3000);
+  const second = inventory.reserve('other', 3000);
+  inventory.release(second.id, 3001);
+  inventory.release(second.id, 3001);
+  assert.equal(inventory.snapshot(3001).available, 1);
+});
+
 test('reservation takes one unit immediately and prevents duplicate or excess holds', () => {
   const inventory = new Inventory({ ...product, totalStock: 1 }, config);
   const hold = inventory.reserve('you', 9500);

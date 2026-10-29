@@ -32,6 +32,7 @@ export class Inventory {
   }
 
   reserve(buyerId: string, now = Date.now()): Readonly<Reservation> {
+    this.expire(now);
     if (!buyerId.trim()) throw new Error('Người mua không hợp lệ.');
     if (this.phase(now) !== 'OPEN') throw new Error('Flash sale chưa mở hoặc đã kết thúc.');
     const previous = this.reservations.get(buyerId);
@@ -47,7 +48,25 @@ export class Inventory {
     return { ...reservation };
   }
 
+  expire(now = Date.now()): boolean {
+    let changed = false;
+    for (const reservation of this.reservations.values()) {
+      if (['RESERVED', 'CHECKING_OUT'].includes(reservation.status) && now >= reservation.expiresAt) {
+        reservation.status = 'EXPIRED';
+        changed = true;
+      }
+    }
+    return changed;
+  }
+
+  release(id: string, now = Date.now()): void {
+    this.expire(now);
+    const reservation = [...this.reservations.values()].find((item) => item.id === id);
+    if (reservation?.status === 'RESERVED') reservation.status = 'RELEASED';
+  }
+
   snapshot(now = Date.now()): InventorySnapshot {
+    this.expire(now);
     const reservations = [...this.reservations.values()].map((item) => ({ ...item }));
     const held = reservations.filter((item) => ['RESERVED', 'CHECKING_OUT'].includes(item.status)).length;
     const sold = this.orders.length;
