@@ -1,0 +1,28 @@
+{
+  "errors": [],
+  "maxSources": 1,
+  "maxRaf": 1,
+  "width": 375,
+  "scrollWidth": 360,
+  "domChangesDuringPlayback": 0,
+  "contrast": {
+    "light": {
+      "text": 14.552206551498765,
+      "muted": 7.090322804621348,
+      "page": 6.286844626004282,
+      "button": 7.6658037122968254,
+      "error": 7.451320138749214,
+      "skeleton": 5.461195614886531
+    },
+    "dark": {
+      "text": 13.054916582936961,
+      "muted": 8.896940191307765,
+      "page": 10.687644080288507,
+      "button": 9.892218504048676,
+      "error": 8.099598189602332,
+      "skeleton": 5.4158109429767665
+    }
+  },
+  "fps": 165.02,
+  "note": "Headless Chrome; 121 frame timestamps. Not a guarantee on other hardware. Page lifecycle events dispatched for deterministic cleanup checks."
+}
