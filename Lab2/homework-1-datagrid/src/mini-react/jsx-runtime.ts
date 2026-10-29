@@ -69,7 +69,21 @@ export namespace JSX {
     export interface IntrinsicElements {
         h1: {
             className?: string;
+            onClick?: (event: MouseEvent) => void;
             children?: VNodeChild;
+        };
+
+        button: {
+            type?: "button" | "submit" | "reset";
+            onClick?: (event: MouseEvent) => void;
+            children?: VNodeChild;
+        };
+
+        input: {
+            type?: "text";
+            id?: string;
+            onInput?: (event: Event) => void;
+            onKeyDown?: (event: KeyboardEvent) => void;
         };
     }
 }
