@@ -15,6 +15,7 @@ export class Inventory {
   readonly config: Readonly<SaleConfig>;
   private reservations = new Map<string, Reservation>();
   private orders: Order[] = [];
+  private nextId = 1;
 
   constructor(product: Product, config: SaleConfig) {
     if (!Number.isInteger(product.totalStock) || product.totalStock < 1) throw new Error('Invalid stock');
@@ -28,6 +29,22 @@ export class Inventory {
   phase(now = Date.now()): SalePhase {
     if (now < this.config.startsAt) return 'UPCOMING';
     return now < this.config.endsAt ? 'OPEN' : 'ENDED';
+  }
+
+  reserve(buyerId: string, now = Date.now()): Readonly<Reservation> {
+    if (!buyerId.trim()) throw new Error('Người mua không hợp lệ.');
+    if (this.phase(now) !== 'OPEN') throw new Error('Flash sale chưa mở hoặc đã kết thúc.');
+    const previous = this.reservations.get(buyerId);
+    if (previous && ['RESERVED', 'CHECKING_OUT', 'CHECKED_OUT'].includes(previous.status)) {
+      throw new Error('Mỗi người chỉ được giữ hoặc mua một sản phẩm.');
+    }
+    if (this.snapshot(now).available < 1) throw new Error('Hết hàng có thể giữ.');
+    const reservation: Reservation = {
+      id: `hold-${this.nextId++}`, buyerId, status: 'RESERVED',
+      expiresAt: Math.min(now + this.config.holdMs, this.config.endsAt),
+    };
+    this.reservations.set(buyerId, reservation);
+    return { ...reservation };
   }
 
   snapshot(now = Date.now()): InventorySnapshot {

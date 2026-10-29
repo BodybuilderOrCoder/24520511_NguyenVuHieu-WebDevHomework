@@ -5,6 +5,18 @@ import { Inventory, canTransition } from '../src/inventory.ts';
 const product = { id: 'headphones', name: 'Tai nghe', price: 299000, totalStock: 5 };
 const config = { startsAt: 1000, endsAt: 10000, holdMs: 2000 };
 
+test('reservation takes one unit immediately and prevents duplicate or excess holds', () => {
+  const inventory = new Inventory({ ...product, totalStock: 1 }, config);
+  const hold = inventory.reserve('you', 9500);
+  assert.equal(hold.expiresAt, 10000);
+  assert.equal(inventory.snapshot(9500).available, 0);
+  assert.throws(() => inventory.reserve('you', 9500));
+  assert.throws(() => inventory.reserve('other', 9500));
+  hold.status = 'EXPIRED';
+  assert.equal(inventory.snapshot(9500).held, 1);
+  assert.throws(() => new Inventory(product, config).reserve('you', 999));
+});
+
 test('state transitions forbid reopening terminal reservations', () => {
   assert.equal(canTransition('RESERVED', 'CHECKING_OUT'), true);
   assert.equal(canTransition('CHECKING_OUT', 'RESERVED'), true);

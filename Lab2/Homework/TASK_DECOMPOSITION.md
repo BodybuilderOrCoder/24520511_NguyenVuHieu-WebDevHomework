@@ -140,7 +140,7 @@
 | 3.1 | Project setup and domain model | Standalone flash-sale app with product, stock, reservation and order models | [x] |
 | 3.2 | Define inventory state machine | Explicit states and valid transitions for available/reserved/expired/checked-out | [x] |
 | 3.3 | Implement anti-drift countdown | Remaining time computed from fixed target timestamp minus `Date.now()` | [x] |
-| 3.4 | Implement countdown cleanup | RAF/timers cancelled when no longer needed | [ ] |
+| 3.4 | Implement countdown cleanup | RAF/timers cancelled when no longer needed | [x] |
 | 3.5 | Implement optimistic reservation | User can request reservation with bounded lifetime | [ ] |
 | 3.6 | Implement lock expiry and stock release | Expired reservations restore availability exactly once | [ ] |
 | 3.7 | Implement checkout transitions | Valid reservation can complete checkout; invalid/expired lock is rejected | [ ] |
@@ -154,6 +154,9 @@
 ### HW3 recommended deliverables
 
 ### HW3 implementation log
+
+- 3.4 verified: 4 tests pass, including repeated cancellation, cancellation from onTick and natural completion; no remaining RAF.
+- 3.5 started: reserve one unit synchronously before any asynchronous work; same buyer cannot double-reserve, stock cannot go below zero, hold deadline is capped by sale end. Return defensive copies.
 
 - 3.3 verified: simulated clock jumps produce 4000, 500, 0 ms; 3 tests and build passed.
 - 3.4 started: verify cancellation is idempotent and cancellation inside onTick cannot schedule an orphan RAF; check natural completion removes the loop.
