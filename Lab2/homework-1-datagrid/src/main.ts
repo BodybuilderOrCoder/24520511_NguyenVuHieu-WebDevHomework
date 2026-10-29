@@ -59,3 +59,31 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
 `
 
 setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
+
+// import { runEventSmokeTest } from "./event-smoke-test";
+
+// runEventSmokeTest();
+
+// import { runInputSmokeTest } from "./input-smoke-test";
+
+// runInputSmokeTest();
+
+// import { runKeyboardSmokeTest } from "./keyboard-smoke-test";
+
+// runKeyboardSmokeTest();
+
+//import { runPropagationSmokeTest } from "./propagation-smoke-test";
+
+// runPropagationSmokeTest();
+
+//import { runRootBoundarySmokeTest } from "./root-boundary-smoke-test";
+
+// runRootBoundarySmokeTest();
+
+//import { runCounterTest } from "./counter-test";
+
+//runCounterTest();
+
+import { runGridDemo } from "./grid-demo";
+
+runGridDemo();

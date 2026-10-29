@@ -5,7 +5,6 @@ type JSXProps = Record<string, unknown> & {
     children?: VNodeChild;
 };
 
-
 function normalizeChildren(children: VNodeChild): VNode[] {
     const result: VNode[] = [];
 
@@ -25,7 +24,10 @@ function normalizeChildren(children: VNodeChild): VNode[] {
             return;
         }
 
-        if (typeof child === "string" || typeof child === "number") {
+        if (
+            typeof child === "string" ||
+            typeof child === "number"
+        ) {
             result.push({
                 type: "TEXT_ELEMENT",
                 props: {
@@ -42,7 +44,6 @@ function normalizeChildren(children: VNodeChild): VNode[] {
     visit(children);
     return result;
 }
-
 
 export function jsx(
     type: VNode["type"],
@@ -62,11 +63,24 @@ export function jsx(
 
 export const jsxs = jsx;
 
-
 export namespace JSX {
     export type Element = VNode;
 
     export interface IntrinsicElements {
+        div: {
+            id?: string;
+            className?: string;
+            children?: VNodeChild;
+        };
+
+        label: {
+            children?: VNodeChild;
+        };
+
+        span: {
+            children?: VNodeChild;
+        };
+
         h1: {
             className?: string;
             onClick?: (event: MouseEvent) => void;
@@ -74,17 +88,49 @@ export namespace JSX {
         };
 
         button: {
+            id?: string;
             type?: "button" | "submit" | "reset";
             onClick?: (event: MouseEvent) => void;
             children?: VNodeChild;
         };
 
         input: {
-            type?: "text";
             id?: string;
+            type?: "text";
             onInput?: (event: Event) => void;
             onKeyDown?: (event: KeyboardEvent) => void;
         };
+
+        table: {
+            "aria-label": string;
+            children?: VNodeChild;
+        };
+
+        thead: {
+            children?: VNodeChild;
+        };
+
+        tbody: {
+            children?: VNodeChild;
+        };
+
+        tr: {
+            id?: string;
+            tabIndex?: number;
+            "aria-selected"?: boolean;
+            onClick?: (event: MouseEvent) => void;
+            onKeyDown?: (event: KeyboardEvent) => void;
+            children?: VNodeChild;
+        };
+
+        th: {
+            scope?: "col" | "row";
+            "aria-sort"?: "ascending" | "descending" | "none";
+            children?: VNodeChild;
+        };
+
+        td: {
+            children?: VNodeChild;
+        };
     }
 }
-

@@ -1,9 +1,11 @@
+
+import type { VNode } from "./types";
+
 import {
     registerEventHandler,
     type DelegatedEventType,
     type EventHandler,
 } from "./events";
-import type { VNode } from "./types";
 
 export function renderToDOM(vnode: VNode): Node {
     if (
@@ -28,16 +30,16 @@ export function renderToDOM(vnode: VNode): Node {
 
     const element = document.createElement(vnode.type);
 
+    const eventProps: Record<string, DelegatedEventType> = {
+        onClick: "click",
+        onInput: "input",
+        onKeyDown: "keydown",
+    };
+
     for (const [name, value] of Object.entries(vnode.props)) {
         if (name === "children" || value == null) {
             continue;
         }
-
-        const eventProps: Record<string, DelegatedEventType> = {
-            onClick: "click",
-            onInput: "input",
-            onKeyDown: "keydown",
-        };
 
         if (Object.prototype.hasOwnProperty.call(eventProps, name)) {
             if (typeof value !== "function") {
@@ -59,7 +61,11 @@ export function renderToDOM(vnode: VNode): Node {
         }
 
         if (name === "id") {
-            element.setAttribute("id", String(value));
+            if (typeof value !== "string") {
+                throw new TypeError("Invalid id");
+            }
+
+            element.setAttribute("id", value);
             continue;
         }
 
@@ -82,6 +88,58 @@ export function renderToDOM(vnode: VNode): Node {
             }
 
             element.setAttribute("type", value);
+            continue;
+        }
+
+        if (name === "aria-label") {
+            if (typeof value !== "string") {
+                throw new TypeError("Invalid aria-label");
+            }
+
+            element.setAttribute("aria-label", value);
+            continue;
+        }
+
+        if (name === "scope" && vnode.type === "th") {
+            if (value !== "col" && value !== "row") {
+                throw new TypeError("Invalid table header scope");
+            }
+
+            element.setAttribute("scope", value);
+            continue;
+        }
+
+        if (name === "aria-sort" && vnode.type === "th") {
+            if (
+                value !== "ascending" &&
+                value !== "descending" &&
+                value !== "none"
+            ) {
+                throw new TypeError("Invalid aria-sort");
+            }
+
+            element.setAttribute("aria-sort", value);
+            continue;
+        }
+
+        if (name === "tabIndex" && vnode.type === "tr") {
+            if (
+                typeof value !== "number" ||
+                !Number.isInteger(value)
+            ) {
+                throw new TypeError("Invalid tabIndex");
+            }
+
+            element.setAttribute("tabindex", String(value));
+            continue;
+        }
+
+        if (name === "aria-selected" && vnode.type === "tr") {
+            if (typeof value !== "boolean") {
+                throw new TypeError("Invalid aria-selected");
+            }
+
+            element.setAttribute("aria-selected", String(value));
             continue;
         }
 
