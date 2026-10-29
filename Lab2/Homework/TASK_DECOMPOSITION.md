@@ -155,6 +155,9 @@
 
 ### HW3 implementation log
 
+- 3.9A verified: build/diff checks passed; headings, labels, table caption/headers and keyboard-native controls reviewed. `div` only groups dt/dd pairs within the definition list.
+- 3.9B started: mobile-first stylesheet, design tokens, dark scheme, visible focus, tabular timer digits, scrollable table and stable loading space.
+
 - 3.8 verified: 9 tests/build pass; 1,000 callers yield exactly 5 holds and 995 rejections; selling all five and repeating requests preserves stock.
 - 3.9 split before coding: 3.9A semantic HTML (`#sale-clock`, `#hold-clock`, stock counters, controls with `data-action`, `#reservations` table); 3.9B external light/dark responsive CSS; 3.9C delegated UI, asynchronous checkout, cancellation and page lifecycle. Demo starts after 5s, runs 90s, holds last 15s. Refresh/reset intentionally discards demo state; no real payment.
 - 3.9A started: labelled controls, non-live millisecond timers to avoid screen-reader flooding, separate live status and semantic reservation table.
