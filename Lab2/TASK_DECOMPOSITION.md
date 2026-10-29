@@ -394,3 +394,30 @@ Pending local testing.
 - Verify using tests, DevTools and git diff.
 - Use atomic Conventional Commits.
 - Preserve all existing exercises.
+
+
+### T-00B: Mini-React Architecture Audit
+
+**Status:** Source Review Completed — Verification Pending
+
+#### Findings
+- VNode factory: reusable with component support extensions.
+- Text rendering: uses safe text nodes.
+- State engine: supports cursor-based state and functional updates.
+- Event delegation: click only; input and keydown missing.
+- Delegated renderer: semantic table tags and ARIA attributes missing.
+- DOM reconciliation: not implemented.
+- JSX automatic runtime: not yet verified.
+
+#### Architectural Decisions
+- Preserve existing Exercise 1 and Exercise 2 source code.
+- Build HW1 in a separate homework directory.
+- Reuse existing architecture as reference.
+- Implement missing functionality through atomic tasks.
+- Verify JSX runtime and testing strategy before implementation.
+
+#### Remaining Verification
+- [ ] Inspect existing checkpoint tests.
+- [ ] Inspect build configuration.
+- [ ] Run existing exercise tests.
+- [ ] Confirm no regressions.
