@@ -155,6 +155,8 @@
 
 ### HW3 implementation log
 
+- 3.10 browser regression reproduced: after advancing past hold expiry, stock returned correctly but overall view remained SUCCESS (`SUCCESS !== ERROR`). Updated timer transition to announce the expired hold explicitly. Browser tests also cover checkout failure/retry, late responses, reset during checkout, refresh and page cleanup.
+
 - 3.10 regressions reproduced: 10/12 tests passed; buyer whitespace and NaN timestamp tests failed with “Missing expected exception”. Fixed normalized map keys and finite timestamp validation; rerun below.
 
 - 3.9C implementation verified by strict build and existing 9 tests. Browser interaction verification remains required before marking 3.9 complete.

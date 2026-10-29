@@ -68,11 +68,14 @@ function updateClock(): void {
   const now = Date.now();
   const changed = inventory.expire(now);
   const state = inventory.snapshot(now);
+  const mine = state.reservations.find((hold) => hold.buyerId === 'you');
+  if (changed && mine?.status === 'EXPIRED') {
+    view = { status: 'ERROR', message: 'Lượt giữ hàng đã hết hạn. Sản phẩm đã được trả lại kho; bạn có thể giữ lại nếu sale còn mở.' };
+  }
   if (changed || root.dataset.phase !== state.phase) render();
   saleClock.textContent = formatTime(remainingMs(
     state.phase === 'UPCOMING' ? inventory.config.startsAt : inventory.config.endsAt, now,
   ));
-  const mine = state.reservations.find((hold) => hold.buyerId === 'you');
   holdClock.textContent = formatTime(mine && ['RESERVED', 'CHECKING_OUT'].includes(mine.status)
     ? remainingMs(mine.expiresAt, now) : 0);
 }
