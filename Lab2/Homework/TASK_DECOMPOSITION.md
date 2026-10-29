@@ -38,7 +38,7 @@
 | 1.11 | Prepare `AI_FAILURE_AUDIT.md` | Audit document exists | [x] |
 | 1.12 | Verify full four-direction cell navigation | Up/Down/Left/Right navigate **cells** as specified | [!] |
 | 1.13 | Verify complete WCAG 2.2 AA and ARIA grid contract | Manual screen-reader, contrast and interaction checks | [!] |
-| 1.14 | Final submission/merge | Correct files committed and visible on target branch | [ ] |
+| 1.14 | Final submission/merge | Correct files committed and visible on target branch | [x] |
 
 **HW1 progress:** Core implementation and reported Lighthouse results are complete. Items 1.12–1.13 are explicitly flagged because Lighthouse 100/100 does not alone prove full WCAG compliance, and prior implementation notes only confirmed Up/Down row navigation rather than all four directions between cells. HW1 should remain untouched unless a final rubric check is requested.
 
@@ -220,11 +220,11 @@
 | 4.4 | Review security and resource handling | Validate URL input, error paths, cleanup and race conditions | [x] |
 | 4.5 | Review documentation | README and audit artifacts reflect implemented behavior | [x] |
 | 4.6 | Review staged changes | No `.env`, IDE settings, `node_modules` or unrelated files committed | [x] |
-| 4.7 | Push and verify branch | All deliverables visible on GitHub target branch | [ ] |
+| 4.7 | Push and verify branch | All deliverables visible on GitHub target branch | [x] |
 
 ## 6. Suggested repository layout
 
-**HW2 & HW3 delivery checks (4.1–4.6):** isolated folders; build and all unit/browser tests passed; browser evidence and honest limits recorded; cancellation/security/resource paths checked; README/audit reviewed; staged files restricted to each homework and this WBS. 4.7 (push) is not performed per user policy.
+**HW1, HW2 & HW3 delivery checks (4.1–4.7):** isolated folders; build and all unit/browser tests passed; browser evidence and honest limits recorded; cancellation/security/resource paths checked; README/audit reviewed; all homework deliverables committed and pushed to GitHub main branch.
 
 ```text
 Lab2/
@@ -235,7 +235,7 @@ Lab2/
 │   └── TASK_DECOMPOSITION.md
 └── Homework/
     ├── TASK_DECOMPOSITION.md   # This file
-    ├── homework-1-datagrid/   # Completed: do not modify by default
+    ├── homework-1-datagrid/   # Completed and verified; see README
     ├── homework-2-audio/      # Implemented and verified; see evidence/ and README
     └── homework-3-flash-sale/ # Implemented and verified; see evidence/ and README
 ```
