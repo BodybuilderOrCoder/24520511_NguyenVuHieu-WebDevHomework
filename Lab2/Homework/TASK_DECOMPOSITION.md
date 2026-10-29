@@ -137,7 +137,7 @@
 
 | WBS ID | Task / deliverable | Acceptance criteria | Status |
 |---|---|---|---|
-| 3.1 | Project setup and domain model | Standalone flash-sale app with product, stock, reservation and order models | [ ] |
+| 3.1 | Project setup and domain model | Standalone flash-sale app with product, stock, reservation and order models | [x] |
 | 3.2 | Define inventory state machine | Explicit states and valid transitions for available/reserved/expired/checked-out | [ ] |
 | 3.3 | Implement anti-drift countdown | Remaining time computed from fixed target timestamp minus `Date.now()` | [ ] |
 | 3.4 | Implement countdown cleanup | RAF/timers cancelled when no longer needed | [ ] |
@@ -152,6 +152,13 @@
 | 3.13 | Final verification and documentation | Reproducible test steps, limitations and result summary | [ ] |
 
 ### HW3 recommended deliverables
+
+### HW3 implementation log
+
+- 3.1 verified: offline install, strict build, localhost:5176 HTTP 200 and diff checks passed. Domain contracts defined before engine implementation.
+- 3.2 started: transitions AVAILABLE → RESERVED → CHECKING_OUT → CHECKED_OUT; RESERVED/CHECKING_OUT → EXPIRED; RESERVED → RELEASED; failed checkout returns RESERVED if still valid. AVAILABLE means no active reservation. Keep stock invariant `available + held + sold = totalStock`; use copies in snapshots.
+
+- 3.1 started: standalone TypeScript/Vite project using existing approved versions; product, reservation, inventory and order contracts first. Browser-only simulation with one synchronous inventory owner, fixed buyer IDs, absolute sale/hold deadlines and no persistence. Refresh resets the demo, not a real order system. Preserve the user's existing `project-rules.md` changes.
 
 - Working flash-sale simulation with anti-drift countdown.
 - Inventory/reservation finite-state machine with expiry and checkout.
