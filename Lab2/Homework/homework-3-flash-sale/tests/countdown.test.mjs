@@ -2,6 +2,11 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { remainingMs, formatTime, startCountdown } from '../src/countdown.ts';
 
+test('invalid timestamps fail explicitly instead of producing NaN timer output', () => {
+  assert.throws(() => remainingMs(Number.NaN, 1000), /Invalid/);
+  assert.throws(() => remainingMs(5000, Infinity), /Invalid/);
+});
+
 test('cleanup cancels RAF, including cancellation inside the tick callback', (t) => {
   const frames = new Map();
   let id = 0;

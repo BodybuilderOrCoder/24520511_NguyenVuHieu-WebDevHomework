@@ -5,6 +5,13 @@ import { Inventory, canTransition } from '../src/inventory.ts';
 const product = { id: 'headphones', name: 'Tai nghe', price: 299000, totalStock: 5 };
 const config = { startsAt: 1000, endsAt: 10000, holdMs: 2000 };
 
+test('whitespace cannot bypass one reservation per buyer', () => {
+  const inventory = new Inventory(product, config);
+  inventory.reserve('you', 1000);
+  assert.throws(() => inventory.reserve(' you ', 1001));
+  assert.equal(inventory.snapshot(1001).held, 1);
+});
+
 test('checkout is single-submit and idempotent; sold inventory is never released', () => {
   const inventory = new Inventory(product, config);
   const hold = inventory.reserve('you', 1000);

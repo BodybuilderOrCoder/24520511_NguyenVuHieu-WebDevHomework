@@ -33,18 +33,19 @@ export class Inventory {
 
   reserve(buyerId: string, now = Date.now()): Readonly<Reservation> {
     this.expire(now);
-    if (!buyerId.trim()) throw new Error('Người mua không hợp lệ.');
+    const normalizedId = buyerId.trim();
+    if (!normalizedId) throw new Error('Người mua không hợp lệ.');
     if (this.phase(now) !== 'OPEN') throw new Error('Flash sale chưa mở hoặc đã kết thúc.');
-    const previous = this.reservations.get(buyerId);
+    const previous = this.reservations.get(normalizedId);
     if (previous && ['RESERVED', 'CHECKING_OUT', 'CHECKED_OUT'].includes(previous.status)) {
       throw new Error('Mỗi người chỉ được giữ hoặc mua một sản phẩm.');
     }
     if (this.snapshot(now).available < 1) throw new Error('Hết hàng có thể giữ.');
     const reservation: Reservation = {
-      id: `hold-${this.nextId++}`, buyerId, status: 'RESERVED',
+      id: `hold-${this.nextId++}`, buyerId: normalizedId, status: 'RESERVED',
       expiresAt: Math.min(now + this.config.holdMs, this.config.endsAt),
     };
-    this.reservations.set(buyerId, reservation);
+    this.reservations.set(normalizedId, reservation);
     return { ...reservation };
   }
 

@@ -1,4 +1,5 @@
 export function remainingMs(deadline: number, now = Date.now()): number {
+  if (!Number.isFinite(deadline) || !Number.isFinite(now)) throw new Error('Invalid countdown timestamp');
   return Math.max(0, deadline - now);
 }
 
@@ -10,6 +11,7 @@ export function formatTime(ms: number): string {
 }
 
 export function startCountdown(deadline: number, onTick: (remaining: number) => void): () => void {
+  remainingMs(deadline); // Validate before scheduling work.
   let frame: number | null = null;
   let stopped = false;
   function tick(): void {

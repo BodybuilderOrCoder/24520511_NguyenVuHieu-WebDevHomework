@@ -155,6 +155,11 @@
 
 ### HW3 implementation log
 
+- 3.10 regressions reproduced: 10/12 tests passed; buyer whitespace and NaN timestamp tests failed with “Missing expected exception”. Fixed normalized map keys and finite timestamp validation; rerun below.
+
+- 3.9C implementation verified by strict build and existing 9 tests. Browser interaction verification remains required before marking 3.9 complete.
+- 3.10 started: regression tests for invalid countdown input, whitespace-normalized buyer identity, async cancellation and browser expiry/reset races. Code review found buyer validation trims only for emptiness but stores raw IDs, and a NaN countdown can emit NaN then silently stop; verify failures before fixes.
+
 - 3.9B verified: production stylesheet build/diff passed; responsive/focus/token rules reviewed. Real viewport/contrast checks remain in 3.10.
 - 3.9C started: one delegated click handler; only timer text changes each frame, inventory table updates on transitions. Checkout simulates 800ms latency with AbortController; reset/pagehide cancel pending work and RAF; visibility restoration recalculates deadlines.
 
