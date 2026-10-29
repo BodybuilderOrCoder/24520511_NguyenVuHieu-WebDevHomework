@@ -1,0 +1,25 @@
+{
+  "errors": [],
+  "maximumRaf": 1,
+  "width": 375,
+  "scrollWidth": 360,
+  "note": "Chrome CDP; Date.now offset simulates throttling/deadline jumps. Page lifecycle events dispatched; reload is real. One-tab inventory only.",
+  "contrast": {
+    "dark": {
+      "text": 13.640465372671136,
+      "muted": 9.031373735560624,
+      "page": 10.40557191417944,
+      "button": 8.554322936193884,
+      "error": 8.34612861092386,
+      "soft": 6.493407203372624
+    },
+    "light": {
+      "text": 15.17527384945724,
+      "muted": 7.244988540422281,
+      "page": 6.747969261930851,
+      "button": 6.848848702676629,
+      "error": 7.716654466569752,
+      "soft": 5.793987469982106
+    }
+  }
+}
