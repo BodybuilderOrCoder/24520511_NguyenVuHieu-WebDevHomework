@@ -104,4 +104,6 @@ Rules:
 5. Zero XSS hazards, zero unauthorized dependencies, no dead code, zero console errors.
 
 
+
+
 > AI can generate code. Developers are responsible for proving that it is correct.
