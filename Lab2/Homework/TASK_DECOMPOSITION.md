@@ -143,7 +143,7 @@
 | 3.4 | Implement countdown cleanup | RAF/timers cancelled when no longer needed | [x] |
 | 3.5 | Implement optimistic reservation | User can request reservation with bounded lifetime | [x] |
 | 3.6 | Implement lock expiry and stock release | Expired reservations restore availability exactly once | [x] |
-| 3.7 | Implement checkout transitions | Valid reservation can complete checkout; invalid/expired lock is rejected | [ ] |
+| 3.7 | Implement checkout transitions | Valid reservation can complete checkout; invalid/expired lock is rejected | [x] |
 | 3.8 | Handle simulated concurrent buyers | No overselling or negative available stock in the chosen simulation model | [ ] |
 | 3.9 | Build flash-sale UI | Countdown, available stock, reservation and checkout states visible | [ ] |
 | 3.10 | Test edge cases | Simultaneous clicks, expiration race, refresh, failure and duplicate checkout | [ ] |
@@ -154,6 +154,9 @@
 ### HW3 recommended deliverables
 
 ### HW3 implementation log
+
+- 3.7 verified: 8 tests/build pass; duplicate checkout, failed retry, exact expiry race, sold-stock preservation checked.
+- 3.8 started: concurrent microtask callers share one synchronous engine; stress 1,000 buyers against 5 units and check inventory conservation. Explicitly not a cross-tab/server lock.
 
 - 3.6 verified: 6 tests/build pass; exact expiry boundary, repeated expiry/release and immediate re-reserve checked.
 - 3.7 started: begin checkout synchronously, reject duplicate submissions, settle only a live CHECKING_OUT hold. Success creates one order; repeated success is idempotent. Failed checkout preserves an unexpired hold for retry; expiry wins over late responses.
