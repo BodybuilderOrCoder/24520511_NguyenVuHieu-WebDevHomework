@@ -144,7 +144,7 @@
 | 3.5 | Implement optimistic reservation | User can request reservation with bounded lifetime | [x] |
 | 3.6 | Implement lock expiry and stock release | Expired reservations restore availability exactly once | [x] |
 | 3.7 | Implement checkout transitions | Valid reservation can complete checkout; invalid/expired lock is rejected | [x] |
-| 3.8 | Handle simulated concurrent buyers | No overselling or negative available stock in the chosen simulation model | [ ] |
+| 3.8 | Handle simulated concurrent buyers | No overselling or negative available stock in the chosen simulation model | [x] |
 | 3.9 | Build flash-sale UI | Countdown, available stock, reservation and checkout states visible | [ ] |
 | 3.10 | Test edge cases | Simultaneous clicks, expiration race, refresh, failure and duplicate checkout | [ ] |
 | 3.11 | Write `AI_FAILURE_AUDIT.md` | At least **3** specific AI-generated flaws, with evidence and fixes | [ ] |
@@ -154,6 +154,10 @@
 ### HW3 recommended deliverables
 
 ### HW3 implementation log
+
+- 3.8 verified: 9 tests/build pass; 1,000 callers yield exactly 5 holds and 995 rejections; selling all five and repeating requests preserves stock.
+- 3.9 split before coding: 3.9A semantic HTML (`#sale-clock`, `#hold-clock`, stock counters, controls with `data-action`, `#reservations` table); 3.9B external light/dark responsive CSS; 3.9C delegated UI, asynchronous checkout, cancellation and page lifecycle. Demo starts after 5s, runs 90s, holds last 15s. Refresh/reset intentionally discards demo state; no real payment.
+- 3.9A started: labelled controls, non-live millisecond timers to avoid screen-reader flooding, separate live status and semantic reservation table.
 
 - 3.7 verified: 8 tests/build pass; duplicate checkout, failed retry, exact expiry race, sold-stock preservation checked.
 - 3.8 started: concurrent microtask callers share one synchronous engine; stress 1,000 buyers against 5 units and check inventory conservation. Explicitly not a cross-tab/server lock.

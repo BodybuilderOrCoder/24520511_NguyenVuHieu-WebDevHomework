@@ -7,10 +7,65 @@
     <link rel="icon" href="data:,">
   </head>
   <body>
-    <a href="#main-content">Đến nội dung chính</a>
+    <a class="skip-link" href="#main-content">Đến nội dung chính</a>
     <main id="main-content" tabindex="-1">
-      <h1>11.11 Flash Sale Lab</h1>
-      <p id="status" role="status">Đang khởi tạo…</p>
+      <header>
+        <p class="eyebrow">LAB 02 · HOMEWORK 03</p>
+        <h1>11.11 Flash Sale Lab</h1>
+        <p>Mô phỏng săn deal: giữ hàng nhanh, thanh toán trước khi hết hạn.</p>
+        <p class="notice">Chỉ là mô phỏng trong một tab. Không có thanh toán thật. Tải lại trang sẽ bắt đầu phiên mới.</p>
+      </header>
+      <section aria-labelledby="sale-heading">
+        <h2 id="sale-heading">Đếm ngược flash sale</h2>
+        <p id="phase" role="status">Sale bắt đầu sau</p>
+        <p id="sale-clock" class="clock" role="timer" aria-label="Thời gian sale còn lại" aria-live="off">00:05.000</p>
+        <p>Chờ 5 giây để mở sale · phiên bán 90 giây · mỗi lượt giữ hàng tối đa 15 giây.</p>
+      </section>
+      <section aria-labelledby="product-heading">
+        <p class="eyebrow">DEAL 11.11 / SỐ LƯỢNG GIỚI HẠN</p>
+        <h2 id="product-heading">Tai nghe không dây UIT Buds</h2>
+        <p class="price">299.000 ₫ <s>599.000 ₫</s></p>
+        <dl class="stock">
+          <div><dt>Còn có thể giữ</dt><dd id="available">5</dd></div>
+          <div><dt>Đang giữ</dt><dd id="held">0</dd></div>
+          <div><dt>Đã bán</dt><dd id="sold">0</dd></div>
+        </dl>
+        <p>Mỗi người mua được giữ hoặc mua một sản phẩm trong phiên.</p>
+        <nav aria-label="Thao tác mua hàng">
+          <button data-action="reserve" id="reserve" type="button" disabled>Giữ hàng ngay</button>
+          <button data-action="release" id="release" type="button" disabled>Hủy giữ hàng</button>
+        </nav>
+      </section>
+      <section aria-labelledby="checkout-heading">
+        <h2 id="checkout-heading">Lượt giữ hàng của bạn</h2>
+        <p id="my-hold">Bạn chưa giữ sản phẩm nào.</p>
+        <p id="hold-clock" class="clock small" role="timer" aria-label="Thời gian giữ hàng còn lại" aria-live="off">00:00.000</p>
+        <label class="check-label" for="fail-next"><input type="checkbox" id="fail-next"> Giả lập lần thanh toán tiếp theo thất bại</label>
+        <nav aria-label="Thanh toán">
+          <button data-action="checkout" id="checkout" type="button" disabled>Thanh toán mô phỏng</button>
+          <button data-action="retry" id="retry" type="button" hidden>Thử thanh toán lại</button>
+        </nav>
+        <p id="loading" class="skeleton" hidden>Đang xử lý thanh toán…</p>
+        <p id="status" role="status">Sẵn sàng.</p>
+        <p id="error" role="alert" hidden></p>
+      </section>
+      <section aria-labelledby="simulation-heading">
+        <h2 id="simulation-heading">Kiểm tra nhiều người mua</h2>
+        <p>20 người mua giả lập cùng yêu cầu giữ hàng. Các yêu cầu dùng chung tồn kho của tab này.</p>
+        <nav aria-label="Điều khiển mô phỏng">
+          <button data-action="burst" id="burst" type="button" disabled>Giả lập 20 người mua</button>
+          <button data-action="reset" type="button">Bắt đầu phiên mới</button>
+        </nav>
+        <p id="burst-result" role="status">Chưa chạy mô phỏng.</p>
+        <section class="table-scroll" aria-label="Danh sách giữ hàng" tabindex="0">
+          <table>
+            <caption>Trạng thái giữ hàng trong phiên</caption>
+            <thead><tr><th scope="col">Người mua</th><th scope="col">Mã giữ</th><th scope="col">Trạng thái</th></tr></thead>
+            <tbody id="reservations"></tbody>
+          </table>
+        </section>
+      </section>
+      <footer><p>Date.now() + requestAnimationFrame · Giữ hàng có hạn · Chống bán vượt tồn kho trong mô phỏng</p></footer>
     </main>
     <script type="module" src="/src/main.ts"></script>
   </body>
