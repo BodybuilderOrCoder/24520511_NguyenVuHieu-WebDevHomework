@@ -65,6 +65,40 @@ export class Inventory {
     if (reservation?.status === 'RESERVED') reservation.status = 'RELEASED';
   }
 
+  private find(id: string): Reservation {
+    const reservation = [...this.reservations.values()].find((item) => item.id === id);
+    if (!reservation) throw new Error('Không tìm thấy lượt giữ hàng.');
+    return reservation;
+  }
+
+  private transition(reservation: Reservation, to: ReservationStatus): void {
+    if (!canTransition(reservation.status, to)) throw new Error('Trạng thái giữ hàng không hợp lệ.');
+    reservation.status = to;
+  }
+
+  beginCheckout(id: string, now = Date.now()): void {
+    this.expire(now);
+    this.transition(this.find(id), 'CHECKING_OUT');
+  }
+
+  finishCheckout(id: string, succeeded: boolean, now = Date.now()): Readonly<Order> {
+    this.expire(now);
+    const existing = this.orders.find((order) => order.reservationId === id);
+    if (existing) return { ...existing };
+    const reservation = this.find(id);
+    if (reservation.status !== 'CHECKING_OUT') throw new Error('Giữ hàng đã hết hạn hoặc chưa bắt đầu thanh toán.');
+    if (!succeeded) {
+      this.transition(reservation, 'RESERVED');
+      throw new Error('Thanh toán mô phỏng thất bại. Bạn có thể thử lại khi còn hạn giữ hàng.');
+    }
+    const order: Order = {
+      id: `order-${id}`, reservationId: id, buyerId: reservation.buyerId, total: this.product.price,
+    };
+    this.transition(reservation, 'CHECKED_OUT');
+    this.orders.push(order);
+    return { ...order };
+  }
+
   snapshot(now = Date.now()): InventorySnapshot {
     this.expire(now);
     const reservations = [...this.reservations.values()].map((item) => ({ ...item }));

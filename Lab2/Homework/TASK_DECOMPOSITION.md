@@ -142,7 +142,7 @@
 | 3.3 | Implement anti-drift countdown | Remaining time computed from fixed target timestamp minus `Date.now()` | [x] |
 | 3.4 | Implement countdown cleanup | RAF/timers cancelled when no longer needed | [x] |
 | 3.5 | Implement optimistic reservation | User can request reservation with bounded lifetime | [x] |
-| 3.6 | Implement lock expiry and stock release | Expired reservations restore availability exactly once | [ ] |
+| 3.6 | Implement lock expiry and stock release | Expired reservations restore availability exactly once | [x] |
 | 3.7 | Implement checkout transitions | Valid reservation can complete checkout; invalid/expired lock is rejected | [ ] |
 | 3.8 | Handle simulated concurrent buyers | No overselling or negative available stock in the chosen simulation model | [ ] |
 | 3.9 | Build flash-sale UI | Countdown, available stock, reservation and checkout states visible | [ ] |
@@ -154,6 +154,9 @@
 ### HW3 recommended deliverables
 
 ### HW3 implementation log
+
+- 3.6 verified: 6 tests/build pass; exact expiry boundary, repeated expiry/release and immediate re-reserve checked.
+- 3.7 started: begin checkout synchronously, reject duplicate submissions, settle only a live CHECKING_OUT hold. Success creates one order; repeated success is idempotent. Failed checkout preserves an unexpired hold for retry; expiry wins over late responses.
 
 - 3.5 verified: 5 tests and build pass; immediate stock reduction, duplicate/excess holds rejected, defensive copies and sale-end cap checked.
 - 3.6 started: expire RESERVED/CHECKING_OUT at `now >= expiresAt`; snapshot and reserve refresh expiry so correctness does not depend on RAF. Release is idempotent and stock is derived from live holds, never incremented twice.
