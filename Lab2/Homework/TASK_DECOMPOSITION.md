@@ -138,8 +138,8 @@
 | WBS ID | Task / deliverable | Acceptance criteria | Status |
 |---|---|---|---|
 | 3.1 | Project setup and domain model | Standalone flash-sale app with product, stock, reservation and order models | [x] |
-| 3.2 | Define inventory state machine | Explicit states and valid transitions for available/reserved/expired/checked-out | [ ] |
-| 3.3 | Implement anti-drift countdown | Remaining time computed from fixed target timestamp minus `Date.now()` | [ ] |
+| 3.2 | Define inventory state machine | Explicit states and valid transitions for available/reserved/expired/checked-out | [x] |
+| 3.3 | Implement anti-drift countdown | Remaining time computed from fixed target timestamp minus `Date.now()` | [x] |
 | 3.4 | Implement countdown cleanup | RAF/timers cancelled when no longer needed | [ ] |
 | 3.5 | Implement optimistic reservation | User can request reservation with bounded lifetime | [ ] |
 | 3.6 | Implement lock expiry and stock release | Expired reservations restore availability exactly once | [ ] |
@@ -154,6 +154,12 @@
 ### HW3 recommended deliverables
 
 ### HW3 implementation log
+
+- 3.3 verified: simulated clock jumps produce 4000, 500, 0 ms; 3 tests and build passed.
+- 3.4 started: verify cancellation is idempotent and cancellation inside onTick cannot schedule an orphan RAF; check natural completion removes the loop.
+
+- 3.2 verified: 2 tests passed for legal/terminal transitions, start/end boundaries and immutable configuration; build passed. Two scoped local commits created.
+- 3.3 started: deadline-based RAF countdown; calculate `max(0, deadline - Date.now())` every frame, including after long gaps. No per-frame decrements or setInterval.
 
 - 3.1 verified: offline install, strict build, localhost:5176 HTTP 200 and diff checks passed. Domain contracts defined before engine implementation.
 - 3.2 started: transitions AVAILABLE → RESERVED → CHECKING_OUT → CHECKED_OUT; RESERVED/CHECKING_OUT → EXPIRED; RESERVED → RELEASED; failed checkout returns RESERVED if still valid. AVAILABLE means no active reservation. Keep stock invariant `available + held + sold = totalStock`; use copies in snapshots.
