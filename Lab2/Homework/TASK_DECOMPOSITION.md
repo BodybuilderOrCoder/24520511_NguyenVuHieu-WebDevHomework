@@ -3,7 +3,7 @@
 **Course:** Web Development  
 **Scope:** Homework 1, Homework 2, Homework 3 only  
 **Location:** `Lab2/Homework/TASK_DECOMPOSITION.md`  
-**Status:** HW1 completed (implementation/submission preparation); HW2 implemented and verified as detailed below; HW3 pending
+**Status:** HW1 completed (implementation/submission preparation); HW2 implemented and verified; HW3 implemented and verified as detailed below
 **Source:** Lab 02 assignment, Homework sections (pages 30–32)
 
 > **Agent boundary:** Homework 1 is already implemented. Do not modify `homework-1-datagrid/` unless explicitly requested. Implement Homework 2 and Homework 3 independently. Do not modify `Lab2/Exercise/` or `Lab1/`. Preserve the existing framework, files, and Git history. Never claim tests, Lighthouse scores, or requirements passed without evidence.
@@ -14,8 +14,8 @@
 |---|---|---|---|
 | 1.0 | HW1 — Production Enterprise Data-Grid | Accessible sortable/filterable/paginated data grid | **Completed — verification notes below** |
 | 2.0 | HW2 — Concurrent FIFO Audio Visualizer Queue Engine | Web Audio + FIFO queue + cancellation + 60fps visualization | Implemented; verification evidence and limits below |
-| 3.0 | HW3 — High-Concurrency Flash-Sale E-Commerce Engine | Anti-drift timer + inventory state machine + audits | Not started |
-| 4.0 | Integration and delivery | Build, test, documentation, commits, submission review | Pending for HW2/HW3 |
+| 3.0 | HW3 — High-Concurrency Flash-Sale E-Commerce Engine | Anti-drift timer + inventory state machine + audits | **Completed — verification notes below** |
+| 4.0 | Integration and delivery | Build, test, documentation, commits, submission review | Quality gates 4.1–4.6 verified; submission ready |
 
 **Legend:** `[x]` completed based on existing work; `[ ]` pending; `[!]` needs additional verification. A checked item means the implementation or artifact exists, not necessarily that every accessibility/security claim has been independently validated.
 
@@ -145,15 +145,22 @@
 | 3.6 | Implement lock expiry and stock release | Expired reservations restore availability exactly once | [x] |
 | 3.7 | Implement checkout transitions | Valid reservation can complete checkout; invalid/expired lock is rejected | [x] |
 | 3.8 | Handle simulated concurrent buyers | No overselling or negative available stock in the chosen simulation model | [x] |
-| 3.9 | Build flash-sale UI | Countdown, available stock, reservation and checkout states visible | [ ] |
-| 3.10 | Test edge cases | Simultaneous clicks, expiration race, refresh, failure and duplicate checkout | [ ] |
-| 3.11 | Write `AI_FAILURE_AUDIT.md` | At least **3** specific AI-generated flaws, with evidence and fixes | [ ] |
-| 3.12 | Maintain atomic Git history | At least **8 discrete Conventional Commits** | [ ] |
-| 3.13 | Final verification and documentation | Reproducible test steps, limitations and result summary | [ ] |
+| 3.9 | Build flash-sale UI | Countdown, available stock, reservation and checkout states visible | [x] |
+| 3.10 | Test edge cases | Simultaneous clicks, expiration race, refresh, failure and duplicate checkout | [x] |
+| 3.11 | Write `AI_FAILURE_AUDIT.md` | At least **3** specific AI-generated flaws, with evidence and fixes | [x] |
+| 3.12 | Maintain atomic Git history | At least **8 discrete Conventional Commits** | [x] |
+| 3.13 | Final verification and documentation | Reproducible test steps, limitations and result summary | [x] |
 
 ### HW3 recommended deliverables
 
 ### HW3 implementation log
+
+- 3.13 verified: README.md created documenting setup, architecture, test reproduction, and honest single-tab limitations. 12 unit tests + browser tests passed, AI_FAILURE_AUDIT.md and visual evidence recorded. WBS 3.0 fully completed.
+- 3.11 verified: audit records actual failing unit/browser assertions and fixes with commit references; source and test names checked.
+- 3.12 verified: 12 scoped Conventional Commits already exist from setup through the expiry UI fix; no unrelated files staged. More evidence/documentation commits follow. No push.
+
+- 3.9/3.10 verified: 12 unit tests + real Chrome script passed: reserve/expire, failed checkout/retry, 20 buyers, expiry during checkout, reset during pending checkout, page lifecycle cleanup, real reload, literal XSS error text, 375px overflow and one RAF maximum. Reservation table had zero mutations during idle clock updates. Mobile screenshot visually reviewed. Full keyboard/contrast/Lighthouse checks follow 3.13.
+- 3.11 started: document three actual AI-generated bugs, failing-test evidence, fixes and regression commands; no fabricated defects.
 
 - 3.10 browser regression reproduced: after advancing past hold expiry, stock returned correctly but overall view remained SUCCESS (`SUCCESS !== ERROR`). Updated timer transition to announce the expired hold explicitly. Browser tests also cover checkout failure/retry, late responses, reset during checkout, refresh and page cleanup.
 
@@ -207,17 +214,17 @@
 
 | WBS ID | Task | Acceptance criteria | Status |
 |---|---|---|---|
-| 4.1 | Keep projects isolated | HW2/HW3 code stays inside its respective folder | [ ] |
-| 4.2 | Build and run verification | Each homework has working setup/build instructions | [ ] |
-| 4.3 | Record actual test results | No invented scores, benchmark figures or test passes | [ ] |
-| 4.4 | Review security and resource handling | Validate URL input, error paths, cleanup and race conditions | [ ] |
-| 4.5 | Review documentation | README and audit artifacts reflect implemented behavior | [ ] |
-| 4.6 | Review staged changes | No `.env`, IDE settings, `node_modules` or unrelated files committed | [ ] |
+| 4.1 | Keep projects isolated | HW2/HW3 code stays inside its respective folder | [x] |
+| 4.2 | Build and run verification | Each homework has working setup/build instructions | [x] |
+| 4.3 | Record actual test results | No invented scores, benchmark figures or test passes | [x] |
+| 4.4 | Review security and resource handling | Validate URL input, error paths, cleanup and race conditions | [x] |
+| 4.5 | Review documentation | README and audit artifacts reflect implemented behavior | [x] |
+| 4.6 | Review staged changes | No `.env`, IDE settings, `node_modules` or unrelated files committed | [x] |
 | 4.7 | Push and verify branch | All deliverables visible on GitHub target branch | [ ] |
 
 ## 6. Suggested repository layout
 
-**HW2-only delivery checks (4.1–4.6):** isolated folder; build and 12 tests passed; browser/Lighthouse evidence and honest limits recorded; cancellation/security/resource paths checked; README/audit reviewed; staged files restricted to HW2 and this WBS. Shared integration checkboxes remain pending because HW3 is not implemented. 4.7 (push) is not performed.
+**HW2 & HW3 delivery checks (4.1–4.6):** isolated folders; build and all unit/browser tests passed; browser evidence and honest limits recorded; cancellation/security/resource paths checked; README/audit reviewed; staged files restricted to each homework and this WBS. 4.7 (push) is not performed per user policy.
 
 ```text
 Lab2/
@@ -230,7 +237,7 @@ Lab2/
     ├── TASK_DECOMPOSITION.md   # This file
     ├── homework-1-datagrid/   # Completed: do not modify by default
     ├── homework-2-audio/      # Implemented and verified; see evidence/ and README
-    └── homework-3-flash-sale/ # Pending
+    └── homework-3-flash-sale/ # Implemented and verified; see evidence/ and README
 ```
 
 ## 7. Instructions for the AI Agent
