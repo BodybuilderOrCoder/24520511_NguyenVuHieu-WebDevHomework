@@ -348,3 +348,76 @@ Implement robust asynchronous state handling with four exclusive UI states: IDLE
 ## Verification Status
 
 Pending local testing.
+
+---
+
+# Homework 1 — Production Enterprise Data-Grid
+
+## Project Scope
+- Custom Mini-React, not official React.
+- Sorting, filtering and pagination.
+- Full keyboard navigation.
+- WCAG 2.2 AA compliance.
+- Lighthouse Accessibility and Best Practices: 100/100.
+
+## Phase 0 — Requirements & Contracts
+- [ ] T-00A: Define acceptance criteria.
+- [ ] T-00B: Audit existing Mini-React modules.
+- [ ] T-00C: Define TypeScript contracts.
+- [ ] T-00D: Define JSX runtime and Vite configuration.
+
+## Phase 1 — Mini-React Engine
+- [ ] T-01A: createTextElement.
+- [ ] T-01B: createElement and normalization.
+- [ ] T-01C: Recursive renderToDOM.
+- [ ] T-01D: Root event delegation.
+- [ ] T-01E: Reactive state and rendering lifecycle.
+
+## Phase 2 — Data-Grid Features
+- [ ] T-02A: Semantic table and columns.
+- [ ] T-02B: Sorting.
+- [ ] T-02C: Filtering.
+- [ ] T-02D: Pagination.
+- [ ] T-02E: Keyboard navigation.
+- [ ] T-02F: Accessibility and responsive CSS.
+
+## Phase 3 — Verification & Delivery
+- [ ] T-03A: Functional tests.
+- [ ] T-03B: Security and lifecycle tests.
+- [ ] T-03C: Lighthouse audit.
+- [ ] T-03D: AI_FAILURE_AUDIT.md.
+- [ ] T-03E: Git review and live defense.
+
+## Working Rules
+- Implement exactly one sub-task at a time.
+- Define contracts before implementation.
+- Verify using tests, DevTools and git diff.
+- Use atomic Conventional Commits.
+- Preserve all existing exercises.
+
+
+### T-00B: Mini-React Architecture Audit
+
+**Status:** Source Review Completed — Verification Pending
+
+#### Findings
+- VNode factory: reusable with component support extensions.
+- Text rendering: uses safe text nodes.
+- State engine: supports cursor-based state and functional updates.
+- Event delegation: click only; input and keydown missing.
+- Delegated renderer: semantic table tags and ARIA attributes missing.
+- DOM reconciliation: not implemented.
+- JSX automatic runtime: not yet verified.
+
+#### Architectural Decisions
+- Preserve existing Exercise 1 and Exercise 2 source code.
+- Build HW1 in a separate homework directory.
+- Reuse existing architecture as reference.
+- Implement missing functionality through atomic tasks.
+- Verify JSX runtime and testing strategy before implementation.
+
+#### Remaining Verification
+- [ ] Inspect existing checkpoint tests.
+- [ ] Inspect build configuration.
+- [ ] Run existing exercise tests.
+- [ ] Confirm no regressions.
