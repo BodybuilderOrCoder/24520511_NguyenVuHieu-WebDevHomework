@@ -1,0 +1,58 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  color-scheme: light;
+  --background: #edf2f5;
+  --surface: #ffffff;
+  --text: #172b3a;
+  --muted: #455b6b;
+  --accent: #075b70;
+  --on-accent: #ffffff;
+  --border: #8a9eaa;
+  --error: #a51d30;
+  --spectrum: #087c93;
+  --skeleton: #d7e4ea;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --background: #101c25;
+    --surface: #1a2c37;
+    --text: #eef5f8;
+    --muted: #bdced8;
+    --accent: #85d9e8;
+    --on-accent: #10252c;
+    --border: #77919f;
+    --error: #ffacb5;
+    --spectrum: #85d9e8;
+    --skeleton: #344e5e;
+  }
+}
+
+body { background: var(--background); color: var(--text); font: 1rem/1.6 system-ui, sans-serif; }
+main { max-width: 960px; margin-inline: auto; padding: 1.25rem; display: grid; gap: 1.5rem; }
+header { padding-block: 1.5rem; }
+h1 { font-size: clamp(2rem, 6vw, 3rem); line-height: 1.2; margin-block: .5rem; }
+h2 { font-size: 1.25rem; }
+p { color: var(--muted); }
+section { display: grid; gap: .85rem; background: var(--surface); padding: 1.25rem; border: 1px solid var(--border); border-radius: .75rem; min-width: 0; }
+.eyebrow { color: var(--accent); font-size: .8rem; font-weight: 700; letter-spacing: .12em; }
+nav, .task-actions { display: flex; flex-wrap: wrap; gap: .65rem; }
+button, select { font: inherit; min-height: 44px; border: 1px solid var(--border); border-radius: .4rem; padding: .5rem .85rem; max-width: 100%; }
+button { cursor: pointer; color: var(--text); background: var(--surface); }
+#enqueue { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
+select { width: 100%; color: var(--text); background: var(--surface); }
+button:disabled { opacity: .55; cursor: default; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+ol { padding-left: 1.5rem; display: grid; gap: .85rem; }
+li { padding: .75rem; border: 1px solid var(--border); border-radius: .4rem; overflow-wrap: anywhere; }
+li p { margin-bottom: .5rem; }
+canvas { display: block; width: 100%; height: auto; background: var(--background); border-radius: .4rem; }
+#stop { justify-self: start; }
+#error { color: var(--error); }
+.skeleton { background: var(--skeleton); border-radius: .4rem; padding: .75rem; }
+[hidden] { display: none !important; }
+.skip-link { position: absolute; top: -100px; left: 1rem; padding: .5rem; background: var(--surface); color: var(--accent); }
+.skip-link:focus { top: .5rem; }
+footer { font-size: .85rem; }
