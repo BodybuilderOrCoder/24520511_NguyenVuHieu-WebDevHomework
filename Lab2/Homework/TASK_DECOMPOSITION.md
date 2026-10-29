@@ -155,6 +155,9 @@
 
 ### HW3 implementation log
 
+- 3.9B verified: production stylesheet build/diff passed; responsive/focus/token rules reviewed. Real viewport/contrast checks remain in 3.10.
+- 3.9C started: one delegated click handler; only timer text changes each frame, inventory table updates on transitions. Checkout simulates 800ms latency with AbortController; reset/pagehide cancel pending work and RAF; visibility restoration recalculates deadlines.
+
 - 3.9A verified: build/diff checks passed; headings, labels, table caption/headers and keyboard-native controls reviewed. `div` only groups dt/dd pairs within the definition list.
 - 3.9B started: mobile-first stylesheet, design tokens, dark scheme, visible focus, tabular timer digits, scrollable table and stable loading space.
 
