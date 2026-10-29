@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FIFO Audio Lab</title>
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="/src/styles.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <main id="main-content" tabindex="-1">
+      <header>
+        <p class="eyebrow">LAB 02 / HOMEWORK 02</p>
+        <h1>FIFO Audio Lab</h1>
+        <p>Queue a few tracks. Watch them load in order, then play the spectrum.</p>
+      </header>
+      <section aria-labelledby="load-heading">
+        <h2 id="load-heading">1. Load your tracks</h2>
+        <label for="track">Demo track</label>
+        <select id="track" aria-describedby="track-hint">
+          <option value="low">Low pulse · 220 Hz</option>
+          <option value="mid">Middle tone · 440 Hz</option>
+          <option value="high">High tone · 880 Hz</option>
+          <option value="missing">Missing file · error demo</option>
+          <option value="invalid">Invalid audio · decode error demo</option>
+        </select>
+        <p id="track-hint">Local, generated 8-second tones. You can enqueue several tracks quickly.</p>
+        <nav aria-label="Queue controls">
+          <button id="enqueue" type="button">Add to queue</button>
+          <button id="cancel-all" type="button">Cancel pending downloads</button>
+          <button id="clear" type="button">Clear finished tasks</button>
+        </nav>
+        <p id="status" role="status" aria-live="polite">Ready to load a track.</p>
+        <p id="error" role="alert" hidden></p>
+        <p id="loading" class="skeleton" hidden>Downloading and decoding audio…</p>
+      </section>
+      <section aria-labelledby="queue-heading">
+        <h2 id="queue-heading">2. Your queue</h2>
+        <p>Downloads and decoding run one at a time. Playback is controlled separately.</p>
+        <ol id="queue" aria-label="Audio tasks"></ol>
+        <p id="empty">No tracks queued yet.</p>
+      </section>
+      <section aria-labelledby="spectrum-heading">
+        <h2 id="spectrum-heading">3. Frequency spectrum</h2>
+        <p id="now-playing" role="status">Playback stopped.</p>
+        <canvas id="spectrum" width="960" height="280" role="img" aria-label="Live audio frequency spectrum">
+          Frequency bars visualize the current track. Playback status is shown above.
+        </canvas>
+        <button id="stop" type="button" disabled>Stop playback</button>
+        <p>FFT size 512 · 256 frequency bins · animation follows your display refresh rate.</p>
+      </section>
+      <footer><p>Web Audio API · FIFO loading · explicit cancellation</p></footer>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
