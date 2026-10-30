@@ -1,0 +1,126 @@
+.card {
+  --card-bg: #172033;
+  --card-border: #334155;
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --accent: #10b981;
+
+  width: 100%;
+  max-width: 420px;
+  box-sizing: border-box;
+  padding: 24px;
+  margin: 24px auto;
+
+  background: var(--card-bg);
+  color: var(--text-primary);
+  border: 1px solid var(--card-border);
+  border-radius: 20px;
+  font-family: system-ui, sans-serif;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.header img {
+  width: 64px;
+  height: 64px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.header hgroup {
+  min-width: 0;
+}
+
+.header h2 {
+  margin: 0 0 6px;
+  font-size: 1.3rem;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+}
+
+.header p {
+  margin: 0;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+  overflow-wrap: anywhere;
+}
+
+.metrics {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  padding: 16px 0;
+  margin: 0 0 20px;
+  border-top: 1px solid var(--card-border);
+  border-bottom: 1px solid var(--card-border);
+}
+
+.metrics dt {
+  color: var(--text-secondary);
+  overflow-wrap: anywhere;
+}
+
+.metrics dd {
+  margin: 0;
+  font-weight: 700;
+  text-align: right;
+  color: var(--accent);
+}
+
+.skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.skills li {
+  padding: 8px 12px;
+  border: 1px solid var(--card-border);
+  border-radius: 10px;
+  background: #243247;
+  font-size: 0.8rem;
+  overflow-wrap: anywhere;
+}
+
+.skills li strong {
+  color: var(--accent);
+}
+
+.skills li span {
+  color: var(--text-secondary);
+}
+
+@media (max-width: 375px) {
+  .card {
+    padding: 16px;
+    margin: 16px auto;
+    border-radius: 16px;
+  }
+
+  .header {
+    gap: 12px;
+  }
+
+  .header h2 {
+    font-size: 1.1rem;
+  }
+
+  .skills {
+    gap: 8px;
+  }
+
+  .skills li {
+    padding: 7px 10px;
+    font-size: 0.75rem;
+  }
+}
