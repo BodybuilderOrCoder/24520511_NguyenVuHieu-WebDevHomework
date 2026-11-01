@@ -104,3 +104,47 @@ dd {
     grid-template-columns: 1fr;
   }
 }
+
+
+article button {
+  margin-top: 16px;
+  padding: 8px 16px;
+  border: 1px solid #ef4444;
+  border-radius: 8px;
+  background-color: transparent;
+  color: #fca5a5;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+article button:hover {
+  background-color: #7f1d1d;
+}
+
+article button:focus-visible {
+  outline: 2px solid #38bdf8;
+  outline-offset: 3px;
+}
+
+
+section > button {
+  display: block;
+  margin: 0 0 24px;
+  padding: 10px 18px;
+  border: 1px solid #64748b;
+  border-radius: 8px;
+  background-color: #334155;
+  color: #f8fafc;
+  font: inherit;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+section > button:hover {
+  background-color: #475569;
+}
+
+section > button:focus-visible {
+  outline: 2px solid #38bdf8;
+  outline-offset: 3px;
+}

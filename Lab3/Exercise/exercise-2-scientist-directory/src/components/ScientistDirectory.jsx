@@ -5,7 +5,7 @@ import { SMART_PEOPLE } from '../data/smartPeople';
 export default function ScientistDirectory({
   initialData = SMART_PEOPLE,
 }) {
-  const [people] = useState(initialData);
+  const [people, setPeople] = useState(initialData);
   const [query, setQuery] = useState('');
   const [minIqInput, setMinIqInput] = useState('160');
 
@@ -15,6 +15,19 @@ export default function ScientistDirectory({
   const searchId = useId();
   const minIqId = useId();
   const sortId = useId();
+
+  
+  function handleDelete(id) {
+    setPeople((prevPeople) =>
+      prevPeople.filter((person) => person.id !== id)
+    );
+  }
+  
+  function handleReset() {
+    setPeople([...initialData]);
+  }
+
+
 
   // Derived data: no additional state or useEffect
   const normalizedQuery = query.trim().toLowerCase();
@@ -95,21 +108,42 @@ export default function ScientistDirectory({
           Showing {visiblePeople.length} of {people.length} scientists
         </output>
 
-        <ul>
-          {visiblePeople.map((p) => (
-            <li key={p.id}>
-              <article>
-                <h2>{p.name}</h2>
-                <dl>
-                  <dt>Age</dt>
-                  <dd>{p.age}</dd>
-                  <dt>IQ</dt>
-                  <dd>{p.iq}</dd>
-                </dl>
-              </article>
-            </li>
-          ))}
-        </ul>
+        
+<button
+  type="button"
+  onClick={handleReset}
+>
+  Reset Data
+</button>
+
+
+        
+<ul>
+  {visiblePeople.map((p) => (
+    <li key={p.id}>
+      <article>
+        <h2>{p.name}</h2>
+
+        <dl>
+          <dt>Age</dt>
+          <dd>{p.age}</dd>
+
+          <dt>IQ</dt>
+          <dd>{p.iq}</dd>
+        </dl>
+
+        <button
+          type="button"
+          onClick={() => handleDelete(p.id)}
+          aria-label={`Delete ${p.name}`}
+        >
+          Delete
+        </button>
+      </article>
+    </li>
+  ))}
+</ul>
+
       </section>
     </main>
   );
