@@ -27,9 +27,9 @@ export default function App() {
         <select
           id={squadSelectId}
           value={selectedSquadId}
-          onChange={(event) =>
-            setSelectedSquadId(event.target.value)
-          }
+          onChange={(event) => {
+            setSelectedSquadId(event.target.value);
+          }}
         >
           {PUBG_VN_SQUADS.map((squad) => (
             <option key={squad.id} value={squad.id}>
@@ -39,7 +39,10 @@ export default function App() {
         </select>
       </section>
 
-      <PubgMatchTelemetry squadId={selectedSquadId} />
+      <PubgMatchTelemetry
+        key={selectedSquadId}
+        squadId={selectedSquadId}
+      />
     </main>
   );
 }

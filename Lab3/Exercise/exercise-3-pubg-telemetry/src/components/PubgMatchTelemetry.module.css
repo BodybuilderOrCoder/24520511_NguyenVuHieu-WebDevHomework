@@ -53,3 +53,126 @@
     grid-template-columns: 1fr 1fr;
   }
 }
+
+
+.skeleton {
+  height: 220px;
+  min-height: 220px;
+  padding: 24px;
+  border: 1px solid #2563eb;
+  border-radius: 12px;
+  background: linear-gradient(
+    135deg,
+    #172554,
+    #1e293b
+  );
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+
+  overflow: hidden;
+  animation: blueZonePulse 1.6s ease-in-out infinite;
+}
+
+.loadingText {
+  margin: 0;
+  color: #bfdbfe;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.skeletonLine,
+.skeletonLineShort {
+  display: block;
+  height: 14px;
+  border-radius: 6px;
+  background: #60a5fa;
+  opacity: 0.35;
+}
+
+.skeletonLine {
+  width: 85%;
+}
+
+.skeletonLineShort {
+  width: 55%;
+}
+
+@keyframes blueZonePulse {
+  0%, 100% {
+    opacity: 0.65;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton {
+    animation: none;
+  }
+}
+
+.telemetryBody {
+  min-height: 360px;
+}
+
+
+.errorPanel {
+  min-height: 220px;
+  padding: 24px;
+  border: 1px solid #ef4444;
+  border-radius: 12px;
+  background-color: #450a0a;
+  color: #fecaca;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.errorPanel h3 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.errorPanel p {
+  margin: 0;
+  line-height: 1.5;
+}
+
+.retryButton {
+  padding: 10px 16px;
+  border: 1px solid #f87171;
+  border-radius: 8px;
+  background: #991b1b;
+  color: #ffffff;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.retryButton:hover {
+  background: #b91c1c;
+}
+
+.retryButton:focus-visible {
+  outline: 3px solid #93c5fd;
+  outline-offset: 3px;
+}
+
+@media (max-width: 375px) {
+  .errorPanel {
+    padding: 16px;
+  }
+
+  .retryButton {
+    max-width: 100%;
+    white-space: normal;
+  }
+}
