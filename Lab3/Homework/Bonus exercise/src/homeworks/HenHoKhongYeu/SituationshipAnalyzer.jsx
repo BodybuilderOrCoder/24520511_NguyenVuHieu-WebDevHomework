@@ -12,9 +12,10 @@ import {
   transitionRelationshipPhase,
 } from './relationshipFsm.js';
 import styles from './SituationshipAnalyzer.module.css';
+import { useGhostingTimer } from './useGhostingTimer.js';
 
 /**
- * Giao diện phân tích 'Hẹn Hò Nhưng Không Yêu' (Phase 2: Pure Derived Red-Flag Meter & WCAG 2.2 Signal Controls)
+ * Giao diện phân tích 'Hẹn Hò Nhưng Không Yêu' (Phase 3: Tích hợp Ghosting Timer 5s & AbortController Cleanup)
  * - Hoàn toàn không có thẻ `<div>` (Zero `<div>`-soup).
  * - Tính toán dẫn xuất thuần khiết trong render (`computeDerivedCompatibility`), không dùng `useEffect` để đồng bộ `isRedFlag`.
  */
@@ -27,19 +28,47 @@ export function SituationshipAnalyzer() {
   // Single FSM state — tuyệt đối không dùng Boolean Soup (`isDating`, `isLoved`)
   const [phase, setPhase] = useState(RELATIONSHIP_PHASES.DATING_NO_LOVE);
   const [signals, setSignals] = useState(INITIAL_EFFORT_SIGNALS);
+  const [lastPingTick, setLastPingTick] = useState(0);
 
   const [actorInput, setActorInput] = useState('EM');
   const [stepsInput, setStepsInput] = useState('100');
   const [labelInput, setLabelInput] = useState('Em thức trắng đêm nhắn tin');
   const signalSeqRef = useRef(10);
 
+  const handleAutoGhostExit = useCallback(() => {
+    setPhase((prev) =>
+      transitionRelationshipPhase(prev, RELATIONSHIP_PHASES.GHOSTED_EXIT)
+    );
+  }, []);
+
+  const {
+    secondsRemaining,
+    pingStatus,
+    sendMessagePing,
+    cancelPendingPing,
+  } = useGhostingTimer(phase, lastPingTick, 5000, handleAutoGhostExit);
+
   // BONUS-02.1: Pure Derived Metrics calculated directly during render (Zero useEffect!)
   const derived = computeDerivedCompatibility(phase, signals);
   const currentMeta = PHASE_META[phase];
 
-  const handlePhaseTransition = useCallback((targetPhase) => {
-    setPhase((prev) => transitionRelationshipPhase(prev, targetPhase));
-  }, []);
+  const handlePhaseTransition = useCallback(
+    (targetPhase) => {
+      if (targetPhase === RELATIONSHIP_PHASES.GHOSTED_EXIT) {
+        cancelPendingPing();
+      }
+      setPhase((prev) => transitionRelationshipPhase(prev, targetPhase));
+      if (targetPhase === RELATIONSHIP_PHASES.DATING_NO_LOVE) {
+        setLastPingTick((t) => t + 1);
+      }
+    },
+    [cancelPendingPing]
+  );
+
+  const handlePingNow = useCallback(() => {
+    setLastPingTick((t) => t + 1);
+    sendMessagePing();
+  }, [sendMessagePing]);
 
   const handleAddSignal = useCallback(
     (event) => {
@@ -52,8 +81,13 @@ export function SituationshipAnalyzer() {
         steps: Number(stepsInput) || 1,
       });
       setSignals((prev) => [...prev, newSignal]);
+      if (actorInput === 'AI_DO') {
+        cancelPendingPing();
+      } else {
+        setLastPingTick((t) => t + 1);
+      }
     },
-    [actorInput, labelInput, stepsInput]
+    [actorInput, cancelPendingPing, labelInput, stepsInput]
   );
 
   return (
@@ -135,8 +169,17 @@ export function SituationshipAnalyzer() {
         >
           <header className={styles.cardHeader}>
             <h2 id="red-flag-meter-heading" className={styles.cardTitle}>
-              Thước Đo Bất Đối Xứng (“Em Cố 100 Lần &lt; Ai Đó 1 Phần”)
+              Thước Đo Bất Đối Xứng &amp; Đồng Hồ “Seen Không Rep”
             </h2>
+            <button
+              type="button"
+              id="btn-ping-message"
+              className={styles.actionButton}
+              disabled={phase !== RELATIONSHIP_PHASES.DATING_NO_LOVE}
+              onClick={handlePingNow}
+            >
+              Nhắn Tin Ping (Gia hạn 5s)
+            </button>
           </header>
 
           <label htmlFor={roiMeterId} className={styles.formField}>
@@ -175,6 +218,15 @@ export function SituationshipAnalyzer() {
             <dt className={styles.metricTerm}>Cảnh báo Red-Flag</dt>
             <dd className={styles.metricValue} id="red-flag-indicator">
               {derived.isRedFlag ? 'RED-FLAG NGUY HIỂM' : 'An toàn'}
+            </dd>
+
+            <dt className={styles.metricTerm}>Bộ đếm Seen Không Rep</dt>
+            <dd className={styles.metricValue} id="ghosting-timer-value">
+              <time dateTime={`PT${secondsRemaining}S`}>
+                {phase === RELATIONSHIP_PHASES.DATING_NO_LOVE
+                  ? `${secondsRemaining.toFixed(1)}s (${pingStatus})`
+                  : `Đã ngắt timer (${pingStatus})`}
+              </time>
             </dd>
           </dl>
 
