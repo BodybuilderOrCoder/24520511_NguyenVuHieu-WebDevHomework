@@ -1,0 +1,35 @@
+{
+  "homework": "Homework 3 — KRAFTON x PUBG Vietnam Championship & Airdrop Arena",
+  "verifiedAt": "2026-11-12T06:26:38.011Z",
+  "scores": {
+    "accessibility": 100,
+    "bestPractices": 100,
+    "seo": 91
+  },
+  "mobileAudit": {
+    "innerWidth": 375,
+    "scrollWidth": 375,
+    "divCountInsideMain": 0,
+    "vipPriceText": "1.500.000 ₫",
+    "timeElementsCount": 3,
+    "topSquadRow": "te",
+    "teTotalPoints": "190"
+  },
+  "arenaAudit": {
+    "optimisticVipStock": "3 suất",
+    "settledVipStock": "3 suất",
+    "optimisticAwmStock": "0 suất",
+    "rolledBackAwmStock": "1 suất",
+    "awmPhaseAfter409": "LOOTED_OUT",
+    "alertBannerText": "Cảnh báo tranh chấp (HTTP 409): HTTP 409 Conflict (LOOTED_OUT): Hòm thính [drop-awm-contraband] vừa bị đội khác loot hết trên máy chủ KRAFTON! Đã hoàn trả (Rollback) số lượng tồn kho.Đã hiểu",
+    "remainingMsAfterWake": 179082
+  },
+  "consoleErrors": [],
+  "evidenceFiles": [
+    "evidence/lighthouse-testing.png",
+    "evidence/lighthouse.html",
+    "evidence/lighthouse.json",
+    "evidence/mobile-375px.png",
+    "evidence/desktop-1440px.png"
+  ]
+}
