@@ -3,7 +3,8 @@ import styles from './DrumKit.module.css';
 
 /**
  * Thanh đo cường độ âm thanh trực quan (Decibel Meter) hỗ trợ người khiếm thính (WCAG 2.2 AA).
- * Sử dụng thẻ <meter> chuẩn HTML5 kết hợp <label htmlFor={id}> qua useId().
+ * Sử dụng thẻ <meter> chuẩn HTML5 kết hợp <label htmlFor={id}> qua useId(),
+ * và <dl> chỉ chứa trực tiếp các cặp <dt>/<dd> đúng chuẩn W3C HTML5 & axe-core.
  */
 export const DecibelMeter = memo(function DecibelMeter({
   currentDb = 0,
@@ -57,18 +58,12 @@ export const DecibelMeter = memo(function DecibelMeter({
       </meter>
 
       <dl className={styles.statsList}>
-        <section className={styles.statItem} aria-label="Cường độ hiện tại">
-          <dt className={styles.statTerm}>Tức thời</dt>
-          <dd className={styles.statValue}>{currentDb} dB</dd>
-        </section>
-        <section className={styles.statItem} aria-label="Cường độ đỉnh">
-          <dt className={styles.statTerm}>Đỉnh (Peak)</dt>
-          <dd className={styles.statValue}>{peakDb} dB</dd>
-        </section>
-        <section className={styles.statItem} aria-label="Tổng số nhịp gõ">
-          <dt className={styles.statTerm}>Tổng nhịp gõ</dt>
-          <dd className={styles.statValue}>{totalHits}</dd>
-        </section>
+        <dt className={styles.statTerm}>Tức thời</dt>
+        <dd className={styles.statValue}>{currentDb} dB</dd>
+        <dt className={styles.statTerm}>Đỉnh (Peak)</dt>
+        <dd className={styles.statValue}>{peakDb} dB</dd>
+        <dt className={styles.statTerm}>Tổng nhịp gõ</dt>
+        <dd className={styles.statValue}>{totalHits}</dd>
       </dl>
     </article>
   );

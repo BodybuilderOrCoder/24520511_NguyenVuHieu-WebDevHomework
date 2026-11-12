@@ -2,7 +2,7 @@ import { memo } from 'react';
 import styles from './DrumKit.module.css';
 
 /**
- * Component nút trống đơn lẻ tuân thủ WCAG 2.2 AA & Zero <div>-soup.
+ * Component nút trống đơn lẻ tuân thủ WCAG 2.2 AA (Rule 2.5.3 Label in Name) & Zero <div>-soup.
  * Memoized để khi 1 phím được kích hoạt, 6 phím còn lại không re-render thừa.
  */
 export const DrumPad = memo(function DrumPad({
@@ -50,10 +50,16 @@ export const DrumPad = memo(function DrumPad({
       onKeyDown={handleKeyDown}
       onKeyUp={handleKeyUp}
     >
-      <kbd className={styles.keyCap}>{pad.keyLabel}</kbd>
+      <kbd className={styles.keyCap} aria-hidden="true">
+        {pad.keyLabel}
+      </kbd>
       <strong className={styles.padTitle}>{pad.name}</strong>
-      <small className={styles.padRole}>{pad.vietnameseRole}</small>
-      <span className={styles.padMeta}>{pad.freq} Hz</span>
+      <small className={styles.padRole} aria-hidden="true">
+        {pad.vietnameseRole}
+      </small>
+      <span className={styles.padMeta} aria-hidden="true">
+        {pad.freq} Hz
+      </span>
     </button>
   );
 });

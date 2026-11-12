@@ -1,0 +1,29 @@
+{
+  "homework": "Homework 1 — Production Studio Drum Kit",
+  "verifiedAt": "2026-11-12T06:12:37.936Z",
+  "scores": {
+    "accessibility": 100,
+    "bestPractices": 100,
+    "seo": 91
+  },
+  "mobileLayout": {
+    "innerWidth": 375,
+    "scrollWidth": 375,
+    "divCountInsideMain": 0,
+    "padCount": 7
+  },
+  "interactionCheck": {
+    "afterTelexHit": "Chuỗi nhịp (1): Kick Bass — Gần nhất: Kick Bass [W] (92 dB)",
+    "meterAfterHit": 92,
+    "historyItems": 3,
+    "liveLogText": "Chuỗi nhịp (3): Kick Bass → Snare Crisp → Closed Hi-Hat — Gần nhất: Closed Hi-Hat [S] (74 dB)"
+  },
+  "consoleErrors": [],
+  "evidenceFiles": [
+    "evidence/lighthouse-testing.png",
+    "evidence/lighthouse.html",
+    "evidence/lighthouse.json",
+    "evidence/mobile-375px.png",
+    "evidence/desktop-1440px.png"
+  ]
+}
