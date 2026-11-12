@@ -1,0 +1,360 @@
+:root {
+  --bg-page: #0b0f19;
+  --bg-panel: #111827;
+  --bg-card: #1e293b;
+  --bg-card-active: #0f172a;
+  --border-subtle: #334155;
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  --focus-ring: #38bdf8;
+
+  /* 7 màu nhạc cụ đạt độ tương phản cao trên nền tối */
+  --pad-kick: #f97316;
+  --pad-snare: #38bdf8;
+  --pad-hihat: #facc15;
+  --pad-clap: #ec4899;
+  --pad-tom1: #a855f7;
+  --pad-tom2: #22c55e;
+  --pad-crash: #14b8a6;
+}
+
+.studioLayout {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 1.25rem 1rem 2.5rem;
+  color: var(--text-primary);
+  display: grid;
+  gap: 1.25rem;
+}
+
+.studioHeader {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-subtle);
+  border-radius: 1rem;
+  padding: 1.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.brandGroup {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.badgePill {
+  display: inline-block;
+  width: fit-content;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #0f172a;
+  background: #38bdf8;
+  padding: 0.2rem 0.65rem;
+  border-radius: 999px;
+}
+
+.studioTitle {
+  margin: 0;
+  font-size: clamp(1.35rem, 2.8vw, 1.9rem);
+  line-height: 1.2;
+}
+
+.studioSubtitle {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 0.92rem;
+}
+
+.toolbarForm {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.85rem;
+  background: var(--bg-card);
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  border: 1px solid var(--border-subtle);
+}
+
+.controlField {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.88rem;
+  color: var(--text-primary);
+}
+
+.checkboxInput {
+  width: 1.25rem;
+  height: 1.25rem;
+  accent-color: #38bdf8;
+  cursor: pointer;
+}
+
+.textInput,
+.selectInput {
+  background: #0f172a;
+  color: var(--text-primary);
+  border: 1px solid #475569;
+  border-radius: 0.5rem;
+  padding: 0.45rem 0.65rem;
+  min-height: 44px;
+  font-size: 0.88rem;
+}
+
+.textInput:focus-visible,
+.selectInput:focus-visible,
+.checkboxInput:focus-visible,
+.actionButton:focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.padSection {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-subtle);
+  border-radius: 1rem;
+  padding: 1.25rem;
+  display: grid;
+  gap: 1rem;
+}
+
+.sectionHeader {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.sectionTitle {
+  margin: 0;
+  font-size: 1.15rem;
+}
+
+.sectionHint {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.drumGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(142px, 1fr));
+  gap: 0.85rem;
+}
+
+.drumPad {
+  appearance: none;
+  background: linear-gradient(160deg, #1e293b 0%, #0f172a 100%);
+  color: var(--text-primary);
+  border: 2px solid var(--border-subtle);
+  border-top: 4px solid var(--pad-accent, #38bdf8);
+  border-radius: 0.9rem;
+  min-height: 124px;
+  min-width: 44px;
+  padding: 0.9rem 0.75rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  cursor: pointer;
+  user-select: none;
+  touch-action: manipulation;
+  transition: transform 90ms ease, border-color 90ms ease, box-shadow 90ms ease;
+}
+
+.drumPad:hover {
+  border-color: var(--pad-accent, #38bdf8);
+}
+
+.drumPad:focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 3px;
+}
+
+.drumPadActive {
+  transform: translateY(2px) scale(0.98);
+  border-color: var(--pad-accent, #38bdf8);
+  background: radial-gradient(
+    circle at center,
+    color-mix(in srgb, var(--pad-accent, #38bdf8) 28%, #0f172a),
+    #0f172a 85%
+  );
+  box-shadow: 0 0 18px color-mix(in srgb, var(--pad-accent, #38bdf8) 45%, transparent);
+}
+
+.keyCap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.25rem;
+  min-height: 2.25rem;
+  padding: 0 0.5rem;
+  border-radius: 0.5rem;
+  background: #0b0f19;
+  border: 1px solid var(--pad-accent, #38bdf8);
+  color: var(--text-primary);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 1.05rem;
+  font-weight: 800;
+}
+
+.padTitle {
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.padRole {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  text-align: center;
+}
+
+.padMeta {
+  font-size: 0.75rem;
+  color: var(--text-primary);
+  background: #0b0f19;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  border: 1px solid #334155;
+}
+
+.telemetryGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.telemetryCard {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-subtle);
+  border-radius: 1rem;
+  padding: 1.15rem;
+  display: grid;
+  gap: 0.85rem;
+  align-content: start;
+}
+
+.meterElement {
+  width: 100%;
+  height: 1.5rem;
+}
+
+.statsList {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+
+.statItem {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 0.6rem;
+  padding: 0.55rem 0.65rem;
+}
+
+.statTerm {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.statValue {
+  margin: 0.2rem 0 0;
+  font-size: 1rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.liveOutput {
+  display: block;
+  background: #0f172a;
+  border: 1px solid var(--border-subtle);
+  border-radius: 0.65rem;
+  padding: 0.75rem;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  min-height: 3rem;
+}
+
+.historyList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.historyChip {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 999px;
+  padding: 0.25rem 0.65rem;
+  font-size: 0.8rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.actionRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.actionButton {
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0.5rem 0.95rem;
+  border-radius: 0.6rem;
+  border: 1px solid #475569;
+  background: #1e293b;
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: 0.86rem;
+  cursor: pointer;
+}
+
+.actionButton:hover:not(:disabled) {
+  background: #334155;
+}
+
+.actionButton:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* Đảm bảo viewport 375px không bao giờ tràn ngang */
+@media (max-width: 480px) {
+  .studioLayout {
+    padding: 0.75rem 0.65rem 1.75rem;
+  }
+
+  .studioHeader,
+  .padSection,
+  .telemetryCard {
+    padding: 0.9rem;
+  }
+
+  .drumGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.65rem;
+  }
+
+  .toolbarForm {
+    width: 100%;
+    padding: 0.65rem;
+  }
+
+  .textInput,
+  .selectInput {
+    width: 100%;
+  }
+}
