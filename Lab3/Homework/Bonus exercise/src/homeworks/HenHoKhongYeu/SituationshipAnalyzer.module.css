@@ -1,0 +1,256 @@
+:root {
+  --bg-page: #0c0a14;
+  --bg-panel: #161224;
+  --bg-card: #211c35;
+  --border-subtle: #3b3358;
+  --text-primary: #f8fafc;
+  --text-secondary: #d8b4fe;
+  --accent-pink: #f472b6;
+  --accent-rose: #fb7185;
+  --accent-emerald: #34d399;
+  --focus-ring: #f472b6;
+}
+
+.analyzerPage {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 1.25rem 1rem 2.5rem;
+  color: var(--text-primary);
+  display: grid;
+  gap: 1.25rem;
+}
+
+.heroHeader {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-subtle);
+  border-radius: 1rem;
+  padding: 1.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.brandGroup {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.phaseBadge {
+  display: inline-block;
+  width: fit-content;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: var(--accent-pink);
+  color: #0c0a14;
+  padding: 0.22rem 0.65rem;
+  border-radius: 999px;
+}
+
+.heroTitle {
+  margin: 0;
+  font-size: clamp(1.35rem, 2.6vw, 1.9rem);
+}
+
+.lyricText {
+  margin: 0;
+  color: var(--text-secondary);
+  font-style: italic;
+  font-size: 0.92rem;
+}
+
+.phaseNav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.phaseButton,
+.actionButton {
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0.5rem 0.9rem;
+  border-radius: 0.6rem;
+  border: 1px solid #584b82;
+  background: var(--bg-card);
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: 0.86rem;
+  cursor: pointer;
+}
+
+.phaseButton:hover:not(:disabled),
+.actionButton:hover:not(:disabled) {
+  background: #2f274b;
+}
+
+.phaseButton:disabled,
+.actionButton:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.phaseButtonActive {
+  background: var(--accent-pink);
+  color: #0c0a14;
+  border-color: var(--accent-pink);
+  font-weight: 800;
+}
+
+.dangerExitBtn {
+  background: #881337;
+  border-color: #fb7185;
+  color: #fff1f2;
+}
+
+.phaseButton:focus-visible,
+.actionButton:focus-visible,
+.inputControl:focus-visible,
+.selectControl:focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.dashboardGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.15rem;
+}
+
+.panelCard {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-subtle);
+  border-radius: 1rem;
+  padding: 1.2rem;
+  display: grid;
+  gap: 0.95rem;
+  align-content: start;
+}
+
+.redFlagActiveCard {
+  border: 2px solid var(--accent-rose);
+}
+
+.cardHeader {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.cardTitle {
+  margin: 0;
+  font-size: 1.12rem;
+}
+
+.roiMeter {
+  width: 100%;
+  height: 1.5rem;
+}
+
+.metricsList {
+  margin: 0;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.45rem 1rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 0.65rem;
+  padding: 0.75rem 0.9rem;
+  align-items: baseline;
+}
+
+.metricTerm {
+  font-size: 0.84rem;
+  color: var(--text-secondary);
+}
+
+.metricValue {
+  margin: 0;
+  font-size: 0.96rem;
+  font-weight: 700;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.diagnosticOutput {
+  display: block;
+  background: #0c0a14;
+  border: 1px solid var(--border-subtle);
+  border-radius: 0.65rem;
+  padding: 0.8rem 0.95rem;
+  font-size: 0.9rem;
+  line-height: 1.45;
+  color: var(--text-primary);
+}
+
+.signalForm {
+  display: grid;
+  gap: 0.75rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 0.75rem;
+  padding: 0.9rem;
+}
+
+.formField {
+  display: grid;
+  gap: 0.35rem;
+  font-size: 0.86rem;
+}
+
+.inputControl,
+.selectControl {
+  min-height: 44px;
+  padding: 0.45rem 0.7rem;
+  border-radius: 0.55rem;
+  border: 1px solid #584b82;
+  background: #0c0a14;
+  color: var(--text-primary);
+  font-size: 0.88rem;
+}
+
+.signalLogList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.signalLogItem {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 0.6rem;
+  padding: 0.6rem 0.85rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.86rem;
+}
+
+@media (max-width: 480px) {
+  .analyzerPage {
+    padding: 0.75rem 0.65rem 1.75rem;
+  }
+
+  .heroHeader,
+  .panelCard {
+    padding: 0.9rem;
+  }
+
+  .phaseNav {
+    width: 100%;
+  }
+
+  .phaseButton,
+  .actionButton {
+    width: 100%;
+  }
+}
