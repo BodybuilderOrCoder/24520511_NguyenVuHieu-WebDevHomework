@@ -1,0 +1,32 @@
+{
+  "homework": "Bonus Exercise — 'Hẹn Hò Nhưng Không Yêu' State Machine",
+  "verifiedAt": "2026-11-12T06:32:57.722Z",
+  "scores": {
+    "accessibility": 100,
+    "bestPractices": 100,
+    "seo": 91
+  },
+  "mobileAudit": {
+    "innerWidth": 375,
+    "scrollWidth": 375,
+    "divCountInsideMain": 0,
+    "initialPhase": "DATING_NO_LOVE",
+    "emImpactText": "100 bước → 10 điểm",
+    "rivalImpactText": "1 bước → 50 điểm",
+    "isRedFlagAttr": "true"
+  },
+  "fsmAudit": {
+    "timerWhilePing": "5.0s (WAITING_READ_RECEIPT)",
+    "phaseAfterExit": "GHOSTED_EXIT",
+    "timerAfterExit": "Đã ngắt timer (ABORTED_CLEAN)",
+    "diagnosticAfterExit": "Đã dừng lại (GHOSTED_EXIT): Toàn bộ bộ đếm chờ tin nhắn và tiến trình ngầm đã được dọn sạch khỏi bộ nhớ."
+  },
+  "consoleErrors": [],
+  "evidenceFiles": [
+    "evidence/lighthouse-testing.png",
+    "evidence/lighthouse.html",
+    "evidence/lighthouse.json",
+    "evidence/mobile-375px.png",
+    "evidence/desktop-1440px.png"
+  ]
+}

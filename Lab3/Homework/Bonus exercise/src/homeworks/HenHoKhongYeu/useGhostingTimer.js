@@ -28,8 +28,8 @@ export function useGhostingTimer(
     if (pingAbortRef.current) {
       pingAbortRef.current.abort();
       pingAbortRef.current = null;
-      setPingStatus('ABORTED_CLEAN');
     }
+    setPingStatus('ABORTED_CLEAN');
   }, []);
 
   const sendMessagePing = useCallback(() => {
@@ -44,7 +44,7 @@ export function useGhostingTimer(
       if (!controller.signal.aborted) {
         setPingStatus('SEEN_NO_REP');
       }
-    }, 350);
+    }, 450);
 
     controller.signal.addEventListener(
       'abort',
@@ -56,7 +56,7 @@ export function useGhostingTimer(
   }, []);
 
   useEffect(() => {
-    if (phase !== RELATIONSHIP_PHASES.DATING_NO_LOVE) {
+    if (phase !== RELATIONSHIP_PHASES.DATING_NO_LOVE || lastPingTick < 0) {
       if (pingAbortRef.current) {
         pingAbortRef.current.abort();
         pingAbortRef.current = null;
@@ -86,12 +86,17 @@ export function useGhostingTimer(
       controller.abort();
       window.clearInterval(intervalId);
       window.clearTimeout(timeoutId);
+    };
+  }, [phase, lastPingTick, timeoutMs, onGhostTimeout]);
+
+  useEffect(() => {
+    return () => {
       if (pingAbortRef.current) {
         pingAbortRef.current.abort();
         pingAbortRef.current = null;
       }
     };
-  }, [phase, lastPingTick, timeoutMs, onGhostTimeout]);
+  }, []);
 
   const secondsRemaining =
     phase === RELATIONSHIP_PHASES.DATING_NO_LOVE
