@@ -1,6 +1,8 @@
 import { useCallback, useEffect } from 'react';
 import styles from './GrandPiano88.module.css';
 import { PianoKey } from './PianoKey.jsx';
+import { SequencerControls } from './SequencerControls.jsx';
+import { useFifoSequencer } from './useFifoSequencer.js';
 import { usePolyphonicAudio } from './usePolyphonicAudio.js';
 import { KEY_BY_CODE, KEY_BY_MIDI, PIANO_KEYS_88 } from './utils/pianoScale.js';
 
@@ -8,7 +10,7 @@ const IGNORED_TAGS = ['INPUT', 'TEXTAREA', 'SELECT'];
 
 /**
  * Bàn đàn Concert Grand Piano 88 phím (A0 -> C8, MIDI 21..108)
- * Phase 3: Cô lập render từng phím với React.memo + useCallback và hỗ trợ bàn phím cứng W3C `e.code`.
+ * Phase 4: Kết hợp 8-Voice Polyphonic Synth + React.memo Isolation + Concurrent FIFO Sequencer.
  */
 export function GrandPiano88() {
   const {
@@ -21,18 +23,39 @@ export function GrandPiano88() {
     maxVoices,
   } = usePolyphonicAudio(8);
 
+  const {
+    sequencerState,
+    playbackRate,
+    setPlaybackRate,
+    eventsQueue,
+    activeReplayIndex,
+    startRecording,
+    stopSequence,
+    playSequence,
+    recordNoteOn,
+    recordNoteOff,
+    loadDemoMelody,
+  } = useFifoSequencer({
+    onTriggerNoteOn: noteOn,
+    onTriggerNoteOff: noteOff,
+    onPanicStop: panicStopAll,
+  });
+
+  // Tham chiếu hàm ổn định tuyệt đối để bảo vệ React.memo trên 88 phím PianoKey
   const handleNoteOn = useCallback(
     (midi) => {
       noteOn(midi);
+      recordNoteOn(midi);
     },
-    [noteOn]
+    [noteOn, recordNoteOn]
   );
 
   const handleNoteOff = useCallback(
     (midi) => {
       noteOff(midi);
+      recordNoteOff(midi);
     },
-    [noteOff]
+    [noteOff, recordNoteOff]
   );
 
   useEffect(() => {
@@ -86,17 +109,17 @@ export function GrandPiano88() {
             88-Key Polyphonic Grand Piano &amp; FIFO Sequencer
           </h1>
           <p className={styles.hallSubtitle}>
-            Thuật toán 88 phím ($A0 \rightarrow C8$) • `React.memo` Render Isolation • 8-Voice FIFO Stealing
+            Thuật toán 88 phím (A0 → C8) • `React.memo` Render Isolation • 8-Voice FIFO Stealing
           </p>
         </section>
 
         <dl className={styles.telemetrySummary}>
           <dt className={styles.statTerm}>Giọng đa âm (Active Pool)</dt>
-          <dd className={styles.statValue}>
+          <dd className={styles.statValue} id="active-voice-count">
             {activeMidis.size} / {maxVoices} voices
           </dd>
           <dt className={styles.statTerm}>FIFO Voice Stealing</dt>
-          <dd className={styles.statValue}>
+          <dd className={styles.statValue} id="stolen-voice-summary">
             {stolenVoicesTotal} lần ({lastEvictedName})
           </dd>
           <dt className={styles.statTerm}>Nốt đang vang</dt>
@@ -104,13 +127,25 @@ export function GrandPiano88() {
         </dl>
       </header>
 
+      <SequencerControls
+        sequencerState={sequencerState}
+        playbackRate={playbackRate}
+        onChangePlaybackRate={setPlaybackRate}
+        eventsQueue={eventsQueue}
+        activeReplayIndex={activeReplayIndex}
+        onStartRecording={startRecording}
+        onStopSequence={stopSequence}
+        onPlaySequence={playSequence}
+        onLoadDemoMelody={loadDemoMelody}
+      />
+
       <section
         className={styles.keyboardSection}
         aria-label="88-Key Concert Grand Piano"
       >
         <header className={styles.panelHeader}>
           <h2 className={styles.panelTitle}>
-            Bàn Phím 88 Phím Chuẩn Quốc Tế (52 Trắng + 36 Đen)
+            Bàn Phím 88 Phím Chuẩn Quốc Tế (52 Trắng + 36 Đen • Quãng Tám C4–E5 Phím A..L)
           </h2>
           <button
             type="button"
@@ -125,6 +160,7 @@ export function GrandPiano88() {
         <section
           className={styles.keyboardViewport}
           aria-label="Khung cuộn ngang 88 phím đàn"
+          tabIndex={0}
         >
           <section className={styles.keyboardRack} aria-label="Dãy 88 phím đàn">
             {PIANO_KEYS_88.map((keyItem) => (

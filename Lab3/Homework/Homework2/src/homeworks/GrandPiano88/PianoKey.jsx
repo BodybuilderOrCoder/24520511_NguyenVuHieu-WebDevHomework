@@ -1,10 +1,10 @@
-import { memo, useRef } from 'react';
+import { memo } from 'react';
 import styles from './GrandPiano88.module.css';
 
 /**
  * Phím đàn đơn lẻ (1 trong 88 phím) được bọc trong `React.memo`.
+ * - Tuân thủ nghiêm ngặt quy tắc Pure Render của React 19 Compiler (không đọc/ghi ref trong render).
  * - Nhận `isPressed` dạng boolean nguyên thủy và `onNoteOn`/`onNoteOff` có tham chiếu ổn định (`useCallback`).
- * - Khi 1 phím được nhấn, chỉ đúng 1 phím đó re-render; 87 phím còn lại giữ nguyên (Did not render).
  */
 export const PianoKey = memo(function PianoKey({
   midi,
@@ -15,9 +15,6 @@ export const PianoKey = memo(function PianoKey({
   onNoteOn,
   onNoteOff,
 }) {
-  const renderCountRef = useRef(0);
-  renderCountRef.current += 1;
-
   const handlePointerDown = (event) => {
     event.preventDefault();
     onNoteOn(midi);
@@ -60,7 +57,6 @@ export const PianoKey = memo(function PianoKey({
       data-midi={midi}
       data-note={noteName}
       data-is-black={isBlack}
-      data-render-count={renderCountRef.current}
       onPointerDown={handlePointerDown}
       onPointerUp={handlePointerUp}
       onPointerLeave={handlePointerUp}
