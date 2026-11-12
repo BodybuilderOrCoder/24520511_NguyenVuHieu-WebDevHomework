@@ -167,7 +167,7 @@ export function useFifoSequencer({ onTriggerNoteOn, onTriggerNoteOff, onPanicSto
       } finally {
         if (abortControllerRef.current === controller) {
           abortControllerRef.current = null;
-          onPanicStop?.();
+          onPanicStop();
           setActiveReplayIndex(-1);
           setSequencerState('IDLE');
         }

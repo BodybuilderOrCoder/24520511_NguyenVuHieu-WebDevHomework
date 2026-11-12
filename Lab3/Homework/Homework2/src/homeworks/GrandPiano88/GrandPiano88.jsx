@@ -160,7 +160,6 @@ export function GrandPiano88() {
         <section
           className={styles.keyboardViewport}
           aria-label="Khung cuộn ngang 88 phím đàn"
-          tabIndex={0}
         >
           <section className={styles.keyboardRack} aria-label="Dãy 88 phím đàn">
             {PIANO_KEYS_88.map((keyItem) => (

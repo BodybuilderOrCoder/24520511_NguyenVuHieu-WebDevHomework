@@ -1,0 +1,34 @@
+{
+  "homework": "Homework 2 — 88-Key Polyphonic Piano & Concurrent FIFO Sequencer",
+  "verifiedAt": "2026-11-12T06:20:54.580Z",
+  "scores": {
+    "accessibility": 100,
+    "bestPractices": 100,
+    "seo": 91
+  },
+  "mobileAudit": {
+    "innerWidth": 375,
+    "scrollWidth": 375,
+    "divCountInsideMain": 0,
+    "totalKeys": 88,
+    "whiteKeys": 52,
+    "blackKeys": 36
+  },
+  "engineAudit": {
+    "singleKeyMutatedCount": 1,
+    "activeVoiceTextAfter9": "8 / 8 voices",
+    "stolenVoiceTextAfter9": "1 lần (C4)",
+    "c4PressedAfterSteal": "false",
+    "stateWhilePlaying": "PLAYING",
+    "stateAfterStop": "IDLE",
+    "activeVoiceTextAfterStop": "0 / 8 voices"
+  },
+  "consoleErrors": [],
+  "evidenceFiles": [
+    "evidence/lighthouse-testing.png",
+    "evidence/lighthouse.html",
+    "evidence/lighthouse.json",
+    "evidence/mobile-375px.png",
+    "evidence/desktop-1440px.png"
+  ]
+}
