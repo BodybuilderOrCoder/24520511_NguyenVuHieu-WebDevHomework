@@ -1,0 +1,32 @@
+{
+  "generatedAt": "2026-11-16T16:47:03.278Z",
+  "summary": [
+    {
+      "sprint": "sprint1-router",
+      "route": "/people/2",
+      "performance": 100,
+      "accessibility": 100,
+      "bestPractices": 100,
+      "seo": 91,
+      "cls": 0
+    },
+    {
+      "sprint": "sprint2-form",
+      "route": "/form",
+      "performance": 100,
+      "accessibility": 100,
+      "bestPractices": 100,
+      "seo": 91,
+      "cls": 0
+    },
+    {
+      "sprint": "sprint3-forum",
+      "route": "/forum",
+      "performance": 99,
+      "accessibility": 100,
+      "bestPractices": 100,
+      "seo": 91,
+      "cls": 0.04055130197516123
+    }
+  ]
+}
