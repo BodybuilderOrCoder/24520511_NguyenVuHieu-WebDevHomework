@@ -1,5 +1,6 @@
 import { lazy, Suspense } from 'react';
 import { Route, Routes } from 'react-router';
+import SimpleForm from './form/SimpleForm.jsx';
 import Layout from './layouts/Layout.jsx';
 import { About, Home, NotFound, PageShell, PeopleIndex } from './pages/Pages.jsx';
 import PeopleLayout from './people/PeopleLayout.jsx';
@@ -34,7 +35,14 @@ export default function App() {
             }
           />
         </Route>
-        <Route path="form" element={<PageShell title="Form" />} />
+        <Route
+          path="form"
+          element={
+            <PageShell title="Registration form">
+              <SimpleForm />
+            </PageShell>
+          }
+        />
         <Route path="forum" element={<PageShell title="Forum" />} />
         <Route path="*" element={<NotFound />} />
       </Route>
