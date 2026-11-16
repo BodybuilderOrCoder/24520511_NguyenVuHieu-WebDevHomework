@@ -1,0 +1,106 @@
+.people-frame {
+  display: grid;
+  grid-template-columns: minmax(280px, 1fr) 2fr;
+  gap: var(--space-4);
+  align-items: start;
+}
+
+.sidebar ul {
+  display: grid;
+  gap: var(--space-1);
+  list-style: none;
+}
+
+.sidebar .link {
+  display: block;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.sidebar .active-link {
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+  color: var(--color-accent-contrast);
+}
+
+.content-area {
+  min-width: 0;
+}
+
+/* Card and skeleton share one fixed box so swapping them causes no layout shift (CLS = 0). */
+.person-card {
+  display: grid;
+  align-content: start;
+  gap: var(--space-3);
+  min-height: 22rem;
+  padding: var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+}
+
+.person-details {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: var(--space-2) var(--space-4);
+}
+
+.person-details dt {
+  font-weight: 600;
+  color: var(--color-muted);
+}
+
+.person-bio {
+  color: var(--color-muted);
+}
+
+.not-found {
+  padding: var(--space-3);
+  border-radius: var(--radius);
+  background: var(--color-danger-bg);
+  color: var(--color-danger);
+  font-weight: 600;
+}
+
+.people-hint {
+  color: var(--color-muted);
+}
+
+.skeleton-line {
+  display: block;
+  height: 1.25rem;
+  border-radius: var(--radius);
+  background: var(--color-skeleton);
+  animation: skeleton-pulse 1.2s ease-in-out infinite;
+}
+
+.skeleton-title {
+  width: 60%;
+  height: 1.75rem;
+}
+
+.skeleton-short {
+  width: 40%;
+}
+
+@keyframes skeleton-pulse {
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton-line {
+    animation: none;
+  }
+}
+
+@media (max-width: 720px) {
+  .people-frame {
+    grid-template-columns: 1fr;
+  }
+}
