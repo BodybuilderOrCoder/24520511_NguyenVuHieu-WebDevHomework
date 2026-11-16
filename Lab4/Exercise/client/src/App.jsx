@@ -1,6 +1,7 @@
 import { lazy, Suspense } from 'react';
 import { Route, Routes } from 'react-router';
 import SimpleForm from './form/SimpleForm.jsx';
+import ChannelSwitcher from './forum/ChannelSwitcher.jsx';
 import Layout from './layouts/Layout.jsx';
 import { About, Home, NotFound, PageShell, PeopleIndex } from './pages/Pages.jsx';
 import PeopleLayout from './people/PeopleLayout.jsx';
@@ -43,7 +44,14 @@ export default function App() {
             </PageShell>
           }
         />
-        <Route path="forum" element={<PageShell title="Forum" />} />
+        <Route
+          path="forum"
+          element={
+            <PageShell title="Live forum">
+              <ChannelSwitcher />
+            </PageShell>
+          }
+        />
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
