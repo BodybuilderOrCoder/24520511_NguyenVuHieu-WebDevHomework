@@ -1,0 +1,172 @@
+{
+  "generatedAt": "2026-11-16T16:27:00.071Z",
+  "checks": [
+    {
+      "name": "route / renders <h1>Home</h1>",
+      "passed": true,
+      "h1": "Home"
+    },
+    {
+      "name": "route /about renders <h1>About</h1>",
+      "passed": true,
+      "h1": "About"
+    },
+    {
+      "name": "route /people renders <h1>People directory</h1>",
+      "passed": true,
+      "h1": "People directory"
+    },
+    {
+      "name": "route /form renders <h1>Registration form</h1>",
+      "passed": true,
+      "h1": "Registration form"
+    },
+    {
+      "name": "route /nope renders <h1>Page not found</h1>",
+      "passed": true,
+      "h1": "Page not found"
+    },
+    {
+      "name": "Alan Turing",
+      "passed": true,
+      "active": "Alan Turing",
+      "mainNavActive": "People"
+    },
+    {
+      "name": "invalid id /people/999 shows the 404 boundary without crashing",
+      "passed": true,
+      "alert404": "404: Person Not Found"
+    },
+    {
+      "name": "PersonDetail is fetched as a separate lazy JS chunk",
+      "passed": true,
+      "chunkRequests": [
+        "http://localhost:5173/assets/PersonDetail-J9zSu0Cw.js"
+      ]
+    },
+    {
+      "name": "Suspense skeleton (aria-busy) shown while chunk loads on Slow 3G",
+      "passed": true,
+      "skeletonBox": 352,
+      "cardBox": 352
+    },
+    {
+      "name": "CLS during lazy load is 0",
+      "passed": true,
+      "cls": 0
+    },
+    {
+      "name": "empty submit is blocked, errors announced, first invalid field focused",
+      "passed": true,
+      "alerts": 2,
+      "inspector": false,
+      "focused": "name"
+    },
+    {
+      "name": "invalid email flagged on the same keystroke via aria-invalid + aria-describedby",
+      "passed": true,
+      "invalid": "true",
+      "describedBy": "Enter a valid email address."
+    },
+    {
+      "name": "valid submit renders ShowData <dl> with one row per field",
+      "passed": true,
+      "rows": [
+        "nameAda Lovelace",
+        "emailada@example.com",
+        "age36"
+      ]
+    },
+    {
+      "name": "POST via UI → message appears after refetch",
+      "passed": true
+    },
+    {
+      "name": "browser POST missing fields → 400, valid → 201 (CORS allowed from localhost:5173)",
+      "passed": true,
+      "badStatus": 400,
+      "badBody": {
+        "error": "Missing required fields"
+      },
+      "goodStatus": 201,
+      "goodId": "8344f2ac-f36b-46df-a7a2-4adf0c88a74a"
+    },
+    {
+      "name": "rapid switch: stale requests show as (canceled) and final data is #Not NASA",
+      "passed": true,
+      "finalChannel": {
+        "heading": "#Not NASA",
+        "authors": [
+          "Moon Skeptic",
+          "Physics Teacher"
+        ],
+        "alert": null
+      },
+      "canceled": 4
+    },
+    {
+      "name": "Console: 0 warnings/errors during normal use (Sprint 1–3)",
+      "passed": true,
+      "consoleNormal": []
+    },
+    {
+      "name": "API down → accessible alert + Retry, page does not crash; Retry recovers after restart",
+      "passed": true,
+      "downState": {
+        "alert": "Could not load messages: Failed to fetch",
+        "h1": "Live forum",
+        "retryButton": true
+      },
+      "recovered": true
+    },
+    {
+      "name": "375px: no horizontal scroll on any route",
+      "passed": true,
+      "scrollWidth": {
+        "/": 375,
+        "/people/4": 375,
+        "/form": 375,
+        "/forum": 375
+      }
+    }
+  ],
+  "network": [
+    {
+      "url": "http://localhost:3001/api/messages/esports-tribunal",
+      "status": "(canceled)",
+      "result": "net::ERR_ABORTED",
+      "ms": 166
+    },
+    {
+      "url": "http://localhost:3001/api/messages/notNasa",
+      "status": "(canceled)",
+      "result": "net::ERR_ABORTED",
+      "ms": 176
+    },
+    {
+      "url": "http://localhost:3001/api/messages/nasa",
+      "status": "(canceled)",
+      "result": "net::ERR_ABORTED",
+      "ms": 170
+    },
+    {
+      "url": "http://localhost:3001/api/messages/esports-tribunal",
+      "status": "(canceled)",
+      "result": "net::ERR_ABORTED",
+      "ms": 180
+    },
+    {
+      "url": "http://localhost:3001/api/messages/notNasa",
+      "status": 200,
+      "result": "finished",
+      "ms": 2043
+    }
+  ],
+  "consoleNormal": [],
+  "consoleExpected400Probe": [
+    "[error] Failed to load resource: the server responded with a status of 400 (Bad Request)"
+  ],
+  "consoleWhileApiDown": [
+    "[error] Failed to load resource: net::ERR_CONNECTION_REFUSED"
+  ]
+}
