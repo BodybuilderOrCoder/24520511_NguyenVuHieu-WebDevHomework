@@ -1,6 +1,32 @@
+import { randomUUID } from 'node:crypto';
 import cors from 'cors';
 import express from 'express';
 import { createSeedStore } from './seed.js';
+
+export const LIMITS = { author: 40, text: 500 };
+
+/**
+ * Picks and validates only the allowed fields — never spreads req.body.
+ * @returns {{ value: { author: string, text: string } } | { error: string }}
+ */
+export function parseMessagePayload(body) {
+  const { author, text } = body ?? {};
+  if (typeof author !== 'string' || typeof text !== 'string') {
+    return { error: 'Missing required fields' };
+  }
+
+  const clean = { author: author.trim(), text: text.trim() };
+  if (!clean.author || !clean.text) {
+    return { error: 'Missing required fields' };
+  }
+
+  for (const [field, max] of Object.entries(LIMITS)) {
+    if (clean[field].length > max) {
+      return { error: `Field "${field}" is too long (max ${max} characters)` };
+    }
+  }
+  return { value: clean };
+}
 
 export function createApp({
   clientOrigin = process.env.CLIENT_ORIGIN ?? 'http://localhost:5173',
@@ -21,6 +47,22 @@ export function createApp({
 
   app.get('/api/messages/:forum', (req, res) => {
     res.json(req.messages);
+  });
+
+  app.post('/api/messages/:forum', (req, res) => {
+    const result = parseMessagePayload(req.body);
+    if (result.error) {
+      return res.status(400).json({ error: result.error });
+    }
+
+    const message = {
+      id: randomUUID(),
+      author: result.value.author,
+      text: result.value.text,
+      timestamp: new Date().toISOString(),
+    };
+    req.messages.push(message);
+    res.status(201).json(message);
   });
 
   app.use((req, res) => {

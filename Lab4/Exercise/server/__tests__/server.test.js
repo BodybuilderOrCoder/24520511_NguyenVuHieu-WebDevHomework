@@ -52,3 +52,67 @@ describe('WBS 1.4.1 — GET /api/messages/:forum + CORS', () => {
     expect(res.body).toEqual({ error: 'Unknown forum' });
   });
 });
+
+describe('WBS 1.4.2 — POST /api/messages/:forum + validation', () => {
+  it.each([
+    [{ author: 'Ada' }],
+    [{ text: 'Hello' }],
+    [{ author: '   ', text: 'Hello' }],
+    [{}],
+  ])('rejects %j with 400', async (body) => {
+    const res = await request(app).post('/api/messages/nasa').send(body);
+    expect(res.status).toBe(400);
+    expect(res.body).toEqual({ error: 'Missing required fields' });
+  });
+
+  it('rejects non-string fields with 400', async () => {
+    const res = await request(app).post('/api/messages/nasa').send({ author: 42, text: ['x'] });
+    expect(res.status).toBe(400);
+  });
+
+  it('rejects over-long text with 400', async () => {
+    const res = await request(app)
+      .post('/api/messages/nasa')
+      .send({ author: 'Ada', text: 'x'.repeat(501) });
+    expect(res.status).toBe(400);
+    expect(res.body.error).toMatch(/too long/i);
+  });
+
+  it('rejects malformed JSON with a JSON 400 (no HTML stack trace)', async () => {
+    const res = await request(app)
+      .post('/api/messages/nasa')
+      .set('Content-Type', 'application/json')
+      .send('{"author": "Ada",');
+    expect(res.status).toBe(400);
+    expect(res.body).toEqual({ error: 'Malformed JSON body' });
+  });
+
+  it('creates a message with a UUID id and ISO timestamp → 201', async () => {
+    const res = await request(app)
+      .post('/api/messages/nasa')
+      .send({ author: '  Ada  ', text: '  Launch window open  ' });
+    expect(res.status).toBe(201);
+    expect(res.body.id).toMatch(UUID);
+    expect(res.body.author).toBe('Ada');
+    expect(res.body.text).toBe('Launch window open');
+    expect(new Date(res.body.timestamp).toISOString()).toBe(res.body.timestamp);
+  });
+
+  it('only stores whitelisted fields (no mass assignment)', async () => {
+    const res = await request(app)
+      .post('/api/messages/nasa')
+      .send({ author: 'Ada', text: 'hi', id: 'forged', isAdmin: true, timestamp: '1970-01-01' });
+    expect(res.status).toBe(201);
+    expect(res.body.id).not.toBe('forged');
+    expect(res.body).not.toHaveProperty('isAdmin');
+    expect(res.body.timestamp).not.toBe('1970-01-01');
+  });
+
+  it('makes the new message visible to a subsequent GET on the same forum only', async () => {
+    const created = await request(app).post('/api/messages/notNasa').send({ author: 'Bob', text: 'Flat?' });
+    const same = await request(app).get('/api/messages/notNasa');
+    const other = await request(app).get('/api/messages/nasa');
+    expect(same.body.map((m) => m.id)).toContain(created.body.id);
+    expect(other.body.map((m) => m.id)).not.toContain(created.body.id);
+  });
+});
